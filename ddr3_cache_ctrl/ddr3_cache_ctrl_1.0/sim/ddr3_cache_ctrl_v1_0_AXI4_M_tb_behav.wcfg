@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="ddr3_cache_ctrl_v1_0_AXI4_M_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="ddr3_cache_ctrl_v1_0_AXI4_M_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="91627750000fs"></ZoomStartTime>
+      <ZoomEndTime time="92274250001fs"></ZoomEndTime>
+      <Cursor1Time time="91957500000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="223"></NameColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="4" />
+   <wvobject fp_name="group226" type="group">
+      <obj_property name="label">New Group 1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/rsta_busy" type="logic">
+         <obj_property name="ElementShortName">rsta_busy</obj_property>
+         <obj_property name="ObjectShortName">rsta_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/rstb_busy" type="logic">
+         <obj_property name="ElementShortName">rstb_busy</obj_property>
+         <obj_property name="ObjectShortName">rstb_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_aclk" type="logic">
+         <obj_property name="ElementShortName">s_aclk</obj_property>
+         <obj_property name="ObjectShortName">s_aclk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_aresetn" type="logic">
+         <obj_property name="ElementShortName">s_aresetn</obj_property>
+         <obj_property name="ObjectShortName">s_aresetn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awid" type="array">
+         <obj_property name="ElementShortName">s_axi_awid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awaddr" type="array">
+         <obj_property name="ElementShortName">s_axi_awaddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awaddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awlen" type="array">
+         <obj_property name="ElementShortName">s_axi_awlen[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awlen[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awsize" type="array">
+         <obj_property name="ElementShortName">s_axi_awsize[2:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awsize[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awburst" type="array">
+         <obj_property name="ElementShortName">s_axi_awburst[1:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awburst[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awvalid" type="logic">
+         <obj_property name="ElementShortName">s_axi_awvalid</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_awready" type="logic">
+         <obj_property name="ElementShortName">s_axi_awready</obj_property>
+         <obj_property name="ObjectShortName">s_axi_awready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_wdata" type="array">
+         <obj_property name="ElementShortName">s_axi_wdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_wdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_wstrb" type="array">
+         <obj_property name="ElementShortName">s_axi_wstrb[31:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_wstrb[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_wlast" type="logic">
+         <obj_property name="ElementShortName">s_axi_wlast</obj_property>
+         <obj_property name="ObjectShortName">s_axi_wlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_wvalid" type="logic">
+         <obj_property name="ElementShortName">s_axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">s_axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_wready" type="logic">
+         <obj_property name="ElementShortName">s_axi_wready</obj_property>
+         <obj_property name="ObjectShortName">s_axi_wready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_bid" type="array">
+         <obj_property name="ElementShortName">s_axi_bid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_bid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_bresp" type="array">
+         <obj_property name="ElementShortName">s_axi_bresp[1:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_bresp[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_bvalid" type="logic">
+         <obj_property name="ElementShortName">s_axi_bvalid</obj_property>
+         <obj_property name="ObjectShortName">s_axi_bvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_bready" type="logic">
+         <obj_property name="ElementShortName">s_axi_bready</obj_property>
+         <obj_property name="ObjectShortName">s_axi_bready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_arid" type="array">
+         <obj_property name="ElementShortName">s_axi_arid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_arid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_araddr" type="array">
+         <obj_property name="ElementShortName">s_axi_araddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_araddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_arlen" type="array">
+         <obj_property name="ElementShortName">s_axi_arlen[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_arlen[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_arsize" type="array">
+         <obj_property name="ElementShortName">s_axi_arsize[2:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_arsize[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_arburst" type="array">
+         <obj_property name="ElementShortName">s_axi_arburst[1:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_arburst[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_arvalid" type="logic">
+         <obj_property name="ElementShortName">s_axi_arvalid</obj_property>
+         <obj_property name="ObjectShortName">s_axi_arvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_arready" type="logic">
+         <obj_property name="ElementShortName">s_axi_arready</obj_property>
+         <obj_property name="ObjectShortName">s_axi_arready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_rid" type="array">
+         <obj_property name="ElementShortName">s_axi_rid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_rid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_rdata" type="array">
+         <obj_property name="ElementShortName">s_axi_rdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_rdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_rresp" type="array">
+         <obj_property name="ElementShortName">s_axi_rresp[1:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axi_rresp[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_rlast" type="logic">
+         <obj_property name="ElementShortName">s_axi_rlast</obj_property>
+         <obj_property name="ObjectShortName">s_axi_rlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_rvalid" type="logic">
+         <obj_property name="ElementShortName">s_axi_rvalid</obj_property>
+         <obj_property name="ObjectShortName">s_axi_rvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/blk_mem_gen_0_i0/s_axi_rready" type="logic">
+         <obj_property name="ElementShortName">s_axi_rready</obj_property>
+         <obj_property name="ObjectShortName">s_axi_rready</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group2587" type="group">
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ACLK" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ACLK</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ACLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxclka" type="logic">
+         <obj_property name="ElementShortName">rxclka</obj_property>
+         <obj_property name="ObjectShortName">rxclka</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARESETN" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARESETN</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARESETN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_wr_int" type="logic">
+         <obj_property name="ElementShortName">rxdpram_wr_int</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wr_int</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_wr_done" type="logic">
+         <obj_property name="ElementShortName">rxdpram_wr_done</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wr_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/fetch_updata_int" type="logic">
+         <obj_property name="ElementShortName">fetch_updata_int</obj_property>
+         <obj_property name="ObjectShortName">fetch_updata_int</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/up_start_frame_num_update" type="logic">
+         <obj_property name="ElementShortName">up_start_frame_num_update</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num_update</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/up_start_frame_num" type="array">
+         <obj_property name="ElementShortName">up_start_frame_num[15:0]</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/updata_cfg_en" type="logic">
+         <obj_property name="ElementShortName">updata_cfg_en</obj_property>
+         <obj_property name="ObjectShortName">updata_cfg_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/updata_frame_num" type="array">
+         <obj_property name="ElementShortName">updata_frame_num[15:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_frame_num[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/updata_subframe_num" type="array">
+         <obj_property name="ElementShortName">updata_subframe_num[3:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_subframe_num[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/init_calib_complete" type="logic">
+         <obj_property name="ElementShortName">init_calib_complete</obj_property>
+         <obj_property name="ObjectShortName">init_calib_complete</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_addrb_a0" type="array">
+         <obj_property name="ElementShortName">rxdpram_addrb_a0[9:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_addrb_a0[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_addrb_a1" type="array">
+         <obj_property name="ElementShortName">rxdpram_addrb_a1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_addrb_a1[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_dout_a1" type="array">
+         <obj_property name="ElementShortName">rxdpram_dout_a1[127:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_dout_a1[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/txdpram_wea_a0" type="logic">
+         <obj_property name="ElementShortName">txdpram_wea_a0</obj_property>
+         <obj_property name="ObjectShortName">txdpram_wea_a0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/txdpram_wea_a1" type="logic">
+         <obj_property name="ElementShortName">txdpram_wea_a1</obj_property>
+         <obj_property name="ObjectShortName">txdpram_wea_a1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/txdpram_addra_a0" type="array">
+         <obj_property name="ElementShortName">txdpram_addra_a0[9:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_addra_a0[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/txdpram_addra_a1" type="array">
+         <obj_property name="ElementShortName">txdpram_addra_a1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_addra_a1[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/txdpram_din_a0" type="array">
+         <obj_property name="ElementShortName">txdpram_din_a0[127:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_din_a0[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/txdpram_din_a1" type="array">
+         <obj_property name="ElementShortName">txdpram_din_a1[127:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_din_a1[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/ERROR" type="logic">
+         <obj_property name="ElementShortName">ERROR</obj_property>
+         <obj_property name="ObjectShortName">ERROR</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWID" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWADDR" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWLEN" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWLEN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWLEN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWSIZE" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWSIZE[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWSIZE[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWBURST" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWBURST[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWBURST[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWLOCK" type="logic">
+         <obj_property name="ElementShortName">M_AXI_AWLOCK</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWLOCK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWCACHE" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWCACHE[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWCACHE[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWPROT" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWPROT[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWPROT[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWQOS" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWQOS[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWQOS[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_AWVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_AWREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_AWREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_WDATA" type="array">
+         <obj_property name="ElementShortName">M_AXI_WDATA[255:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WDATA[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_WSTRB" type="array">
+         <obj_property name="ElementShortName">M_AXI_WSTRB[31:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WSTRB[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_WLAST" type="logic">
+         <obj_property name="ElementShortName">M_AXI_WLAST</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WLAST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_WUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_WUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_dout_a0" type="array">
+         <obj_property name="ElementShortName">rxdpram_dout_a0[127:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_dout_a0[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_WVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_WVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_WREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_WREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_BID" type="array">
+         <obj_property name="ElementShortName">M_AXI_BID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_BRESP" type="array">
+         <obj_property name="ElementShortName">M_AXI_BRESP[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BRESP[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_BUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_BUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_BVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_BVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_BREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_BREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARID" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARADDR" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARLEN" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARLEN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARLEN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARSIZE" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARSIZE[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARSIZE[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARBURST" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARBURST[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARBURST[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARLOCK" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARLOCK</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARLOCK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARCACHE" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARCACHE[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARCACHE[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARPROT" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARPROT[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARPROT[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARQOS" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARQOS[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARQOS[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_ARREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RID" type="array">
+         <obj_property name="ElementShortName">M_AXI_RID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RDATA" type="array">
+         <obj_property name="ElementShortName">M_AXI_RDATA[255:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RDATA[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RRESP" type="array">
+         <obj_property name="ElementShortName">M_AXI_RRESP[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RRESP[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RLAST" type="logic">
+         <obj_property name="ElementShortName">M_AXI_RLAST</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RLAST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_RUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_RVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/M_AXI_RREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_RREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_addra_a0" type="array">
+         <obj_property name="ElementShortName">rxdpram_addra_a0[11:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_addra_a0[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_din_a0" type="array">
+         <obj_property name="ElementShortName">rxdpram_din_a0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_din_a0[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/rxdpram_wea_a0" type="logic">
+         <obj_property name="ElementShortName">rxdpram_wea_a0</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wea_a0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_TARGET_SLAVE_BASE_ADDR" type="array">
+         <obj_property name="ElementShortName">C_M_TARGET_SLAVE_BASE_ADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_TARGET_SLAVE_BASE_ADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_BURST_LEN" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_BURST_LEN[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_BURST_LEN[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_ID_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_ID_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_ID_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_ADDR_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_ADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_ADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_DATA_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_DATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_DATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_AWUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_AWUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_AWUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_ARUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_ARUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_ARUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_WUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_WUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_WUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_RUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_RUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_RUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/C_M_AXI_BUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_BUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_BUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group7411" type="group">
+      <obj_property name="label">New Group 89</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_wr_int" type="logic">
+         <obj_property name="ElementShortName">rxdpram_wr_int</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wr_int</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_wr_done" type="logic">
+         <obj_property name="ElementShortName">rxdpram_wr_done</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wr_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/fetch_updata_int" type="logic">
+         <obj_property name="ElementShortName">fetch_updata_int</obj_property>
+         <obj_property name="ObjectShortName">fetch_updata_int</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/up_start_frame_num_update" type="logic">
+         <obj_property name="ElementShortName">up_start_frame_num_update</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num_update</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/up_start_frame_num" type="array">
+         <obj_property name="ElementShortName">up_start_frame_num[15:0]</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_cfg_en" type="logic">
+         <obj_property name="ElementShortName">updata_cfg_en</obj_property>
+         <obj_property name="ObjectShortName">updata_cfg_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_frame_num" type="array">
+         <obj_property name="ElementShortName">updata_frame_num[15:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_frame_num[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_subframe_num" type="array">
+         <obj_property name="ElementShortName">updata_subframe_num[3:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_subframe_num[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/init_calib_complete" type="logic">
+         <obj_property name="ElementShortName">init_calib_complete</obj_property>
+         <obj_property name="ObjectShortName">init_calib_complete</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_addrb_a0" type="array">
+         <obj_property name="ElementShortName">rxdpram_addrb_a0[9:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_addrb_a0[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_addrb_a1" type="array">
+         <obj_property name="ElementShortName">rxdpram_addrb_a1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_addrb_a1[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_dout_a0" type="array">
+         <obj_property name="ElementShortName">rxdpram_dout_a0[127:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_dout_a0[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_dout_a1" type="array">
+         <obj_property name="ElementShortName">rxdpram_dout_a1[127:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_dout_a1[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_wea_a0" type="logic">
+         <obj_property name="ElementShortName">txdpram_wea_a0</obj_property>
+         <obj_property name="ObjectShortName">txdpram_wea_a0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_wea_a1" type="logic">
+         <obj_property name="ElementShortName">txdpram_wea_a1</obj_property>
+         <obj_property name="ObjectShortName">txdpram_wea_a1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_din_a0" type="array">
+         <obj_property name="ElementShortName">txdpram_din_a0[127:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_din_a0[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_addra_a0" type="array">
+         <obj_property name="ElementShortName">txdpram_addra_a0[9:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_addra_a0[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_addra_a1" type="array">
+         <obj_property name="ElementShortName">txdpram_addra_a1[9:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_addra_a1[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_din_a1" type="array">
+         <obj_property name="ElementShortName">txdpram_din_a1[127:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_din_a1[127:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/ERROR" type="logic">
+         <obj_property name="ElementShortName">ERROR</obj_property>
+         <obj_property name="ObjectShortName">ERROR</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARESETN" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARESETN</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARESETN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWID" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWADDR" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWLEN" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWLEN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWLEN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWSIZE" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWSIZE[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWSIZE[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWBURST" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWBURST[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWBURST[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWLOCK" type="logic">
+         <obj_property name="ElementShortName">M_AXI_AWLOCK</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWLOCK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWCACHE" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWCACHE[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWCACHE[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWPROT" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWPROT[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWPROT[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWQOS" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWQOS[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWQOS[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_AWUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_AWVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_AWREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_AWREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_AWREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_WDATA" type="array">
+         <obj_property name="ElementShortName">M_AXI_WDATA[255:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WDATA[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_WSTRB" type="array">
+         <obj_property name="ElementShortName">M_AXI_WSTRB[31:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WSTRB[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_WLAST" type="logic">
+         <obj_property name="ElementShortName">M_AXI_WLAST</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WLAST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_WUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_WUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_WVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_WVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_WREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_WREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_WREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_BID" type="array">
+         <obj_property name="ElementShortName">M_AXI_BID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_BRESP" type="array">
+         <obj_property name="ElementShortName">M_AXI_BRESP[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BRESP[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_BUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_BUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_BVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_BVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_BREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_BREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_BREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARID" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARLEN" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARLEN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARLEN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARSIZE" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARSIZE[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARSIZE[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARBURST" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARBURST[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARBURST[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARLOCK" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARLOCK</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARLOCK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARCACHE" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARCACHE[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARCACHE[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARPROT" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARPROT[2:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARPROT[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARQOS" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARQOS[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARQOS[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ACLK" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ACLK</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ACLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR" type="array">
+         <obj_property name="ElementShortName">M_AXI_ARADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="vbus8471" type="vbus">
+         <obj_property name="label">rd_frame</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[31]" type="logic">
+            <obj_property name="ElementShortName">[31]</obj_property>
+            <obj_property name="ObjectShortName">[31]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[30]" type="logic">
+            <obj_property name="ElementShortName">[30]</obj_property>
+            <obj_property name="ObjectShortName">[30]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[29]" type="logic">
+            <obj_property name="ElementShortName">[29]</obj_property>
+            <obj_property name="ObjectShortName">[29]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[28]" type="logic">
+            <obj_property name="ElementShortName">[28]</obj_property>
+            <obj_property name="ObjectShortName">[28]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[27]" type="logic">
+            <obj_property name="ElementShortName">[27]</obj_property>
+            <obj_property name="ObjectShortName">[27]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[26]" type="logic">
+            <obj_property name="ElementShortName">[26]</obj_property>
+            <obj_property name="ObjectShortName">[26]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[25]" type="logic">
+            <obj_property name="ElementShortName">[25]</obj_property>
+            <obj_property name="ObjectShortName">[25]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[24]" type="logic">
+            <obj_property name="ElementShortName">[24]</obj_property>
+            <obj_property name="ObjectShortName">[24]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[23]" type="logic">
+            <obj_property name="ElementShortName">[23]</obj_property>
+            <obj_property name="ObjectShortName">[23]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[22]" type="logic">
+            <obj_property name="ElementShortName">[22]</obj_property>
+            <obj_property name="ObjectShortName">[22]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[21]" type="logic">
+            <obj_property name="ElementShortName">[21]</obj_property>
+            <obj_property name="ObjectShortName">[21]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[20]" type="logic">
+            <obj_property name="ElementShortName">[20]</obj_property>
+            <obj_property name="ObjectShortName">[20]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[19]" type="logic">
+            <obj_property name="ElementShortName">[19]</obj_property>
+            <obj_property name="ObjectShortName">[19]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[18]" type="logic">
+            <obj_property name="ElementShortName">[18]</obj_property>
+            <obj_property name="ObjectShortName">[18]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[17]" type="logic">
+            <obj_property name="ElementShortName">[17]</obj_property>
+            <obj_property name="ObjectShortName">[17]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[16]" type="logic">
+            <obj_property name="ElementShortName">[16]</obj_property>
+            <obj_property name="ObjectShortName">[16]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARADDR[15]" type="logic">
+            <obj_property name="ElementShortName">[15]</obj_property>
+            <obj_property name="ObjectShortName">[15]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_ARREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_ARREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_ARREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RID" type="array">
+         <obj_property name="ElementShortName">M_AXI_RID[3:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RID[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RDATA" type="array">
+         <obj_property name="ElementShortName">M_AXI_RDATA[255:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RDATA[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RVALID" type="logic">
+         <obj_property name="ElementShortName">M_AXI_RVALID</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RVALID</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_rready" type="logic">
+         <obj_property name="ElementShortName">axi_rready</obj_property>
+         <obj_property name="ObjectShortName">axi_rready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RRESP" type="array">
+         <obj_property name="ElementShortName">M_AXI_RRESP[1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RRESP[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RLAST" type="logic">
+         <obj_property name="ElementShortName">M_AXI_RLAST</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RLAST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RUSER" type="array">
+         <obj_property name="ElementShortName">M_AXI_RUSER[-1:0]</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RUSER[-1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/M_AXI_RREADY" type="logic">
+         <obj_property name="ElementShortName">M_AXI_RREADY</obj_property>
+         <obj_property name="ObjectShortName">M_AXI_RREADY</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/mst_exec_state" type="array">
+         <obj_property name="ElementShortName">mst_exec_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">mst_exec_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_awaddr" type="array">
+         <obj_property name="ElementShortName">axi_awaddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_awaddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_awvalid" type="logic">
+         <obj_property name="ElementShortName">axi_awvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_awvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_wdata" type="array">
+         <obj_property name="ElementShortName">axi_wdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_wlast" type="logic">
+         <obj_property name="ElementShortName">axi_wlast</obj_property>
+         <obj_property name="ObjectShortName">axi_wlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_wvalid" type="logic">
+         <obj_property name="ElementShortName">axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_bready" type="logic">
+         <obj_property name="ElementShortName">axi_bready</obj_property>
+         <obj_property name="ObjectShortName">axi_bready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_araddr" type="array">
+         <obj_property name="ElementShortName">axi_araddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_araddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/axi_arvalid" type="logic">
+         <obj_property name="ElementShortName">axi_arvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_arvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/write_index" type="array">
+         <obj_property name="ElementShortName">write_index[5:0]</obj_property>
+         <obj_property name="ObjectShortName">write_index[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/read_index" type="array">
+         <obj_property name="ElementShortName">read_index[5:0]</obj_property>
+         <obj_property name="ObjectShortName">read_index[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/burst_size_bytes" type="array">
+         <obj_property name="ElementShortName">burst_size_bytes[11:0]</obj_property>
+         <obj_property name="ObjectShortName">burst_size_bytes[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/write_burst_counter" type="array">
+         <obj_property name="ElementShortName">write_burst_counter[10:0]</obj_property>
+         <obj_property name="ObjectShortName">write_burst_counter[10:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/read_burst_counter" type="array">
+         <obj_property name="ElementShortName">read_burst_counter[10:0]</obj_property>
+         <obj_property name="ObjectShortName">read_burst_counter[10:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/start_single_burst_write" type="logic">
+         <obj_property name="ElementShortName">start_single_burst_write</obj_property>
+         <obj_property name="ObjectShortName">start_single_burst_write</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/start_single_burst_read" type="logic">
+         <obj_property name="ElementShortName">start_single_burst_read</obj_property>
+         <obj_property name="ObjectShortName">start_single_burst_read</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/writes_done" type="logic">
+         <obj_property name="ElementShortName">writes_done</obj_property>
+         <obj_property name="ObjectShortName">writes_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/reads_done" type="logic">
+         <obj_property name="ElementShortName">reads_done</obj_property>
+         <obj_property name="ObjectShortName">reads_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/error_reg" type="logic">
+         <obj_property name="ElementShortName">error_reg</obj_property>
+         <obj_property name="ObjectShortName">error_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/burst_write_active" type="logic">
+         <obj_property name="ElementShortName">burst_write_active</obj_property>
+         <obj_property name="ObjectShortName">burst_write_active</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/burst_read_active" type="logic">
+         <obj_property name="ElementShortName">burst_read_active</obj_property>
+         <obj_property name="ObjectShortName">burst_read_active</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/write_resp_error" type="logic">
+         <obj_property name="ElementShortName">write_resp_error</obj_property>
+         <obj_property name="ObjectShortName">write_resp_error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/read_resp_error" type="logic">
+         <obj_property name="ElementShortName">read_resp_error</obj_property>
+         <obj_property name="ObjectShortName">read_resp_error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/wnext" type="logic">
+         <obj_property name="ElementShortName">wnext</obj_property>
+         <obj_property name="ObjectShortName">wnext</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rnext" type="logic">
+         <obj_property name="ElementShortName">rnext</obj_property>
+         <obj_property name="ObjectShortName">rnext</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_wr_int_ff" type="array">
+         <obj_property name="ElementShortName">rxdpram_wr_int_ff[1:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wr_int_ff[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_wr_int_pulse" type="logic">
+         <obj_property name="ElementShortName">rxdpram_wr_int_pulse</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_wr_int_pulse</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/up_start_frame_num_update_ff" type="array">
+         <obj_property name="ElementShortName">up_start_frame_num_update_ff[1:0]</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num_update_ff[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/up_start_frame_num_update_pulse" type="logic">
+         <obj_property name="ElementShortName">up_start_frame_num_update_pulse</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num_update_pulse</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_cfg_en_ff" type="array">
+         <obj_property name="ElementShortName">updata_cfg_en_ff[1:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_cfg_en_ff[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_cfg_en_pulse" type="logic">
+         <obj_property name="ElementShortName">updata_cfg_en_pulse</obj_property>
+         <obj_property name="ObjectShortName">updata_cfg_en_pulse</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/wait_done_to_idle" type="array">
+         <obj_property name="ElementShortName">wait_done_to_idle[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wait_done_to_idle[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/clear_written" type="logic">
+         <obj_property name="ElementShortName">clear_written</obj_property>
+         <obj_property name="ObjectShortName">clear_written</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/clear_read" type="logic">
+         <obj_property name="ElementShortName">clear_read</obj_property>
+         <obj_property name="ObjectShortName">clear_read</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/wr_int_flag_cnt" type="array">
+         <obj_property name="ElementShortName">wr_int_flag_cnt[7:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_int_flag_cnt[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rd_int_flag_cnt" type="array">
+         <obj_property name="ElementShortName">rd_int_flag_cnt[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_int_flag_cnt[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/wr_int_flag" type="logic">
+         <obj_property name="ElementShortName">wr_int_flag</obj_property>
+         <obj_property name="ObjectShortName">wr_int_flag</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rd_int_flag" type="logic">
+         <obj_property name="ElementShortName">rd_int_flag</obj_property>
+         <obj_property name="ObjectShortName">rd_int_flag</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_burst_r" type="array">
+         <obj_property name="ElementShortName">rxdpram_burst_r[3:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_burst_r[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_addr" type="array">
+         <obj_property name="ElementShortName">rxdpram_addr[9:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_addr[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/rxdpram_index_cnt" type="array">
+         <obj_property name="ElementShortName">rxdpram_index_cnt[3:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdpram_index_cnt[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_din" type="array">
+         <obj_property name="ElementShortName">txdpram_din[255:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_din[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_addra" type="array">
+         <obj_property name="ElementShortName">txdpram_addra[9:0]</obj_property>
+         <obj_property name="ObjectShortName">txdpram_addra[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/txdpram_wea" type="logic">
+         <obj_property name="ElementShortName">txdpram_wea</obj_property>
+         <obj_property name="ObjectShortName">txdpram_wea</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/up_start_frame_num_r" type="array">
+         <obj_property name="ElementShortName">up_start_frame_num_r[15:0]</obj_property>
+         <obj_property name="ObjectShortName">up_start_frame_num_r[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_frame_num_r" type="array">
+         <obj_property name="ElementShortName">updata_frame_num_r[15:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_frame_num_r[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_subframe_num_r" type="array">
+         <obj_property name="ElementShortName">updata_subframe_num_r[3:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_subframe_num_r[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/updata_cfg_en_pulse_r" type="array">
+         <obj_property name="ElementShortName">updata_cfg_en_pulse_r[3:0]</obj_property>
+         <obj_property name="ObjectShortName">updata_cfg_en_pulse_r[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/loaded_rdbaseaddr" type="array">
+         <obj_property name="ElementShortName">loaded_rdbaseaddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">loaded_rdbaseaddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_TARGET_SLAVE_BASE_ADDR" type="array">
+         <obj_property name="ElementShortName">C_M_TARGET_SLAVE_BASE_ADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_TARGET_SLAVE_BASE_ADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_BURST_LEN" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_BURST_LEN[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_BURST_LEN[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_ID_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_ID_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_ID_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_ADDR_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_ADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_ADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_DATA_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_DATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_DATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_AWUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_AWUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_AWUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_ARUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_ARUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_ARUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_WUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_WUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_WUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_RUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_RUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_RUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_M_AXI_BUSER_WIDTH" type="array">
+         <obj_property name="ElementShortName">C_M_AXI_BUSER_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_M_AXI_BUSER_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_TRANSACTIONS_NUM" type="array">
+         <obj_property name="ElementShortName">C_TRANSACTIONS_NUM[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_TRANSACTIONS_NUM[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_MASTER_LENGTH" type="array">
+         <obj_property name="ElementShortName">C_MASTER_LENGTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_MASTER_LENGTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/C_NO_BURSTS_REQ" type="array">
+         <obj_property name="ElementShortName">C_NO_BURSTS_REQ[31:0]</obj_property>
+         <obj_property name="ObjectShortName">C_NO_BURSTS_REQ[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/IDLE" type="array">
+         <obj_property name="ElementShortName">IDLE[1:0]</obj_property>
+         <obj_property name="ObjectShortName">IDLE[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/INIT_WRITE" type="array">
+         <obj_property name="ElementShortName">INIT_WRITE[1:0]</obj_property>
+         <obj_property name="ObjectShortName">INIT_WRITE[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/INIT_READ" type="array">
+         <obj_property name="ElementShortName">INIT_READ[1:0]</obj_property>
+         <obj_property name="ObjectShortName">INIT_READ[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/INIT_DONE" type="array">
+         <obj_property name="ElementShortName">INIT_DONE[1:0]</obj_property>
+         <obj_property name="ObjectShortName">INIT_DONE[1:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group7670" type="group">
+      <obj_property name="label">New Group 97</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/rst_n" type="logic">
+         <obj_property name="ElementShortName">rst_n</obj_property>
+         <obj_property name="ObjectShortName">rst_n</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/frame" type="array">
+         <obj_property name="ElementShortName">frame[15:0]</obj_property>
+         <obj_property name="ObjectShortName">frame[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/startframe" type="array">
+         <obj_property name="ElementShortName">startframe[15:0]</obj_property>
+         <obj_property name="ObjectShortName">startframe[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/subframe" type="array">
+         <obj_property name="ElementShortName">subframe[3:0]</obj_property>
+         <obj_property name="ObjectShortName">subframe[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/frame_p0" type="array">
+         <obj_property name="ElementShortName">frame_p0[15:0]</obj_property>
+         <obj_property name="ObjectShortName">frame_p0[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/frame_p1" type="array">
+         <obj_property name="ElementShortName">frame_p1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">frame_p1[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/frame_p2" type="array">
+         <obj_property name="ElementShortName">frame_p2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">frame_p2[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/frame_p3" type="array">
+         <obj_property name="ElementShortName">frame_p3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">frame_p3[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/ddr3_cache_ctrl_v1_0_AXI4_M_tb/inst_ddr3_cache_ctrl_v1_0_AXI4_M/conv_frame_to_addr_i0/baseaddr" type="array">
+         <obj_property name="ElementShortName">baseaddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">baseaddr[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
