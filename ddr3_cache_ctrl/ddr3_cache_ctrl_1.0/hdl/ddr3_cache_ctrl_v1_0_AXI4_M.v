@@ -407,7 +407,7 @@
 	    else if (M_AXI_AWREADY && axi_awvalid)                             
 	      begin                                                            
 	        
-	        if(axi_awaddr[C_M_AXI_ADDR_WIDTH-1:8]==24'h13_FFFF)		//8192*4*10240/256
+	        if((axi_awaddr[C_M_AXI_ADDR_WIDTH-1:8]==24'h13_FFFF)||(up_start_frame_num_update_pulse))	//8192*4*10240/256
 	        	axi_awaddr <= 0;
 	        else
 	        	axi_awaddr <= axi_awaddr + burst_size_bytes;
