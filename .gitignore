@@ -74,8 +74,8 @@ reconfig_mif
 *.os
 *webtalk*
 *.hw/
-sim/*
-simulation/*
+sim/
+simulation/
 *.xml
 gui
 !component.xml
