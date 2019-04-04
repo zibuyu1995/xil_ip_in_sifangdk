@@ -324,6 +324,12 @@ module ddr3_cache_ctrl_v1_0_AXI4_M_tb; /* this is automatically generated */
 			@(posedge M_AXI_ACLK)
 			updata_cfg_en = 0;
 		end
+
+		@(posedge M_AXI_ACLK)
+		up_start_frame_num = 163;
+		up_start_frame_num_update = 0;
+		@(posedge M_AXI_ACLK)
+		up_start_frame_num_update = 1;
 		#200000
 		repeat(10)@(posedge M_AXI_ACLK);
 		$stop;
