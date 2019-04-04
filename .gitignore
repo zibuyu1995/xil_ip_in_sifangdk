@@ -38,7 +38,7 @@ iseconfig
 xlnx_auto*
 _ngo
 _xmsgs
-component.xml
+!component.xml
 *.jou
 xgui
 *.cache/
@@ -75,5 +75,8 @@ reconfig_mif
 *.os
 *webtalk*
 *.hw/
+sim/*
+simulation/*
+*.xml
 gui
 
