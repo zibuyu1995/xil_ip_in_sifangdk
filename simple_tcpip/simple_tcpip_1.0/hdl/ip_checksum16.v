@@ -16,11 +16,13 @@ module ip_checksum16 (
 	output wire [15:0] ip_checksum
 );
 
-	parameter ID = 16'hB3FE;	//Identification
+	parameter ID = 32'hB3FE;	//Identification
 	parameter TTL = 8'h80;		//Time To Live
 	parameter PROTOCOL = 8'h11; 	//0x11---UDP  0x06---TCP
 
-	localparam STAGE3C_A0 = ID + {TTL, PROTOCOL};
+	localparam STAGE1C_P0 = ID + {16'd0, TTL, PROTOCOL};
+	localparam STAGE1C_P1 = 32'h4500;
+	localparam STAGE1C_A0 = STAGE1C_P0 + STAGE1C_P1;
 
 	//register define
 	reg [31:0] pipeline_stage1a;
@@ -40,7 +42,7 @@ module ip_checksum16 (
 		else begin
 			pipeline_stage1a <= {16'd0, src_ip[15:0]} + {16'd0, src_ip[31:16]};
 			pipeline_stage1b <= {16'd0, dst_ip[15:0]} + {16'd0, dst_ip[31:16]};
-			pipeline_stage1c <= {16'd0, STAGE3C_A0} + {16'd0, pkt_len};
+			pipeline_stage1c <= STAGE1C_A0 + {16'd0, pkt_len};
 		end
 
 	//pipeline stage 2
