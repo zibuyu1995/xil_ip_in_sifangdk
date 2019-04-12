@@ -1,11 +1,11 @@
 // -----------------------------------------------------------------------------
 // Copyright (c) 2014-2019 All rights reserved
 // -----------------------------------------------------------------------------
-// Author   : hao liang (Ash) a529481713@gmail.com
-// File     : simple_tcpip_top.v
-// Create   : 2019-04-10 22:38:36
-// Editor   : sublime text3, tab size (4)
-// Encoding : utf-8
+// Author : hao liang (Ash) a529481713@gmail.com
+// File   : simple_tcpip_top.v
+// Create : 2019-04-12 23:06:27
+// Editor : sublime text3, tab size (4)
+// Coding : utf-8
 // -----------------------------------------------------------------------------
 `include "simple_tcpip_param.vh"
 
