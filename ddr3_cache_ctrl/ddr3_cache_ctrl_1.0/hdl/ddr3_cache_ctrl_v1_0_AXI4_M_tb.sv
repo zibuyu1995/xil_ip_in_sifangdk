@@ -258,8 +258,8 @@ module ddr3_cache_ctrl_v1_0_AXI4_M_tb; /* this is automatically generated */
 		rxdpram_addra_a0 = '0;
 		updata_cfg_en = 0;
 		updata_frame_num = 0;
-		updata_subframe_num = 1;
-		up_start_frame_num = 1;
+		updata_subframe_num = 0;
+		up_start_frame_num = 0;
 		up_start_frame_num_update = 0;
 		init_calib_complete = 0;
 		#2000

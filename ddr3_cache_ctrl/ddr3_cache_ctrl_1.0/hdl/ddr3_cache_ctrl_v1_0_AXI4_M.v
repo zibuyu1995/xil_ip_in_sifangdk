@@ -255,7 +255,7 @@
 	reg [7:0] wr_int_flag_cnt, rd_int_flag_cnt;
 	reg 	wr_int_flag, rd_int_flag;
 
-	reg [3:0] rxdpram_burst_r = 'b0;
+	reg [4:0] rxdpram_burst_r = 'b0;
 	reg [9:0] rxdpram_addr = 'b0;
 	reg [3:0] rxdpram_index_cnt = 'b0;
 
@@ -269,6 +269,12 @@
 	reg [3:0] updata_cfg_en_pulse_r = 'b0;
 
 	wire [31:0] loaded_rdbaseaddr;
+
+	// data cache for compensation of M_AXI_WREADY
+	reg [255:0] rxdpram_wdata_cache[7:0];
+	reg [2:0] rxdpram_wdata_wrpoint;
+	reg [2:0] rxdpram_wdata_rdpoint;
+	integer i;
 
 
 	// I/O Connections assignments
@@ -448,7 +454,7 @@
 	  	if (M_AXI_ARESETN == 0)
 	  		rxdpram_burst_r <= 0;
 	  	else 
-	  		rxdpram_burst_r <= {rxdpram_burst_r[2:0], start_single_burst_write};
+	  		rxdpram_burst_r <= {rxdpram_burst_r[3:0], start_single_burst_write};
 
 
 	  always @(posedge M_AXI_ACLK)                                                      
@@ -458,7 +464,7 @@
 	        axi_wvalid <= 1'b0;                                                         
 	      end                                                                           
 	    // If previously not valid, start next transaction                              
-	    else if (~axi_wvalid &&  rxdpram_burst_r[3])  // start_single_burst_write                       
+	    else if (~axi_wvalid &&  rxdpram_burst_r[4])  // start_single_burst_write                       
 	      begin                                                                         
 	        axi_wvalid <= 1'b1;                                                         
 	      end                                                                           
@@ -537,16 +543,42 @@
 	 Data pattern is only a simple incrementing count from 0 for each burst  */         
 	  always @(posedge M_AXI_ACLK)                                                      
 	  begin                                                                             
-	    if (M_AXI_ARESETN == 0)                                                         
-	      axi_wdata <= 'b0;                                                             
+	    if (M_AXI_ARESETN == 0) begin                                                         
+	      axi_wdata <= 'b0; 
+	      rxdpram_wdata_rdpoint <= 0;
+	    end                                                   
 	    //else if (wnext && axi_wlast)                                                  
 	    //  axi_wdata <= 'b0;                                                           
-	    else if (wnext||(~axi_wvalid && rxdpram_burst_r[3]))                                                                 
+	    else if (wnext||(~axi_wvalid && rxdpram_burst_r[4])) begin                                                              
 	      // axi_wdata <= axi_wdata + 1; 
-	      axi_wdata <= {rxdpram_dout_a1, rxdpram_dout_a0};
-	    else                                                                            
-	      axi_wdata <= axi_wdata;                                                       
-	    end                                                                             
+	  	  axi_wdata <= rxdpram_wdata_cache[rxdpram_wdata_rdpoint];
+	      rxdpram_wdata_rdpoint <= rxdpram_wdata_rdpoint + 1'b1;//axi_wdata <= {rxdpram_dout_a1, rxdpram_dout_a0};
+	    end
+	    else begin                                                                       
+	      axi_wdata <= axi_wdata;
+	      if(start_single_burst_write)
+	      	rxdpram_wdata_rdpoint <= 0;
+	      else
+	      	rxdpram_wdata_rdpoint <= rxdpram_wdata_rdpoint;
+	    end
+	  end 
+
+	  always @(posedge M_AXI_ACLK)                                                      
+	  begin                                                                             
+	    if (M_AXI_ARESETN == 0||start_single_burst_write == 1'b1) begin
+	      rxdpram_wdata_wrpoint <= 0;
+	      for(i=0; i<8; i=i+1)
+	      	rxdpram_wdata_cache[i] <= 0;
+		end                                                       
+	    else if ((rxdpram_burst_r[3]&&(rxdpram_wdata_wrpoint==3'b000))||(rxdpram_wdata_wrpoint!=3'b000)) begin
+	      rxdpram_wdata_cache[rxdpram_wdata_wrpoint] <= {rxdpram_dout_a1, rxdpram_dout_a0};
+	      rxdpram_wdata_wrpoint <= rxdpram_wdata_wrpoint + 1'b1;
+	    end
+	    else begin                                                                        
+	      rxdpram_wdata_cache[rxdpram_wdata_wrpoint] <= rxdpram_wdata_cache[rxdpram_wdata_wrpoint];
+	      rxdpram_wdata_wrpoint <= rxdpram_wdata_wrpoint;
+	    end
+	  end                                                                            
 
 
 	//----------------------------
