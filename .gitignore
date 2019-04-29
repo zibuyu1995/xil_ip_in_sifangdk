@@ -76,7 +76,6 @@ reconfig_mif
 *.hw/
 sim/
 simulation/
-*.xml
 gui
-!component.xml
+
 
