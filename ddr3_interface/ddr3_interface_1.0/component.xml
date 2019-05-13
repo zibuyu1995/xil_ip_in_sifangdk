@@ -1512,13 +1512,15 @@
     <xilinx:coreExtensions>
       <xilinx:supportedFamilies>
         <xilinx:family xilinx:lifeCycle="Pre-Production">zynq</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Beta">artix7</xilinx:family>
+        <xilinx:family xilinx:lifeCycle="Beta">kintex7</xilinx:family>
       </xilinx:supportedFamilies>
       <xilinx:taxonomies>
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>ddr3_interface_v1.1</xilinx:displayName>
-      <xilinx:coreRevision>11</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-03-19T07:43:28Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>12</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2019-05-13T03:29:36Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="xilinx.com:user:ddr3_interface:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/ddr3_interface/ddr3_interface_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="xilinx.com:user:ddr3_interface:1.1_ARCHIVE_LOCATION">e:/lh/ip_repo/ddr3_interface/ddr3_interface_1.0</xilinx:tag>
