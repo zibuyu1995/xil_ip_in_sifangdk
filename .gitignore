@@ -39,7 +39,6 @@ xlnx_auto*
 _ngo
 _xmsgs
 *.jou
-xgui
 *.cache/
 *.runs/
 *.srcs/
