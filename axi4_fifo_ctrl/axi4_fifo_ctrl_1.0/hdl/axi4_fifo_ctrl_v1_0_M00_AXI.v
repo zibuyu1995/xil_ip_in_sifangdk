@@ -216,8 +216,10 @@
 	localparam [1:0] FIFO_RDWAIT = 2'b11;
 
 	localparam LAST_ADDR = C_M_AXI_TARGET_SLAVE_RANGE_ADDR - (C_M_AXI_BURST_LEN*C_M_AXI_DATA_WIDTH/8);
+	localparam MAX_PTR = C_M_AXI_TARGET_SLAVE_RANGE_ADDR / (C_M_AXI_BURST_LEN*C_M_AXI_DATA_WIDTH/8);
+	localparam PTR_WIDTH = clogb2(MAX_PTR-1) + 1;
 
-	 reg [1:0] mst_exec_state;
+	reg [1:0] mst_exec_state;
 
 	// AXI4LITE signals
 	//AXI4 internal temp signals
@@ -278,6 +280,10 @@
 	reg [1:0] mst_wr_state;
 	reg [1:0] mst_rd_state;
 	reg [1:0] fifo_rd_state;
+
+	reg [PTR_WIDTH-1:0] fifo_ptr = 'd0;
+	wire axi4_wr_hit;
+	wire axi4_rd_hit;
 
 	initial begin
 		for(i=0; i<C_M_AXI_BURST_LEN; i=i+1) begin
@@ -340,6 +346,9 @@
 
 	assign cache_a_hit = cache_a_ready&&(cache_sel_wr==1);
 	assign cache_b_hit = cache_b_ready&&(cache_sel_wr==0);
+
+	assign axi4_wr_hit = ({M_AXI_BVALID, axi_bready}==2'b11);
+	assign axi4_rd_hit = ({M_AXI_RLAST, M_AXI_RVALID, axi_rready}==3'b111);
 
 
 	//Generate a pulse to initiate AXI transaction.
@@ -1122,6 +1131,20 @@
 				cache_b_invalid <= 0;
 			end
 		end
+
+	always @ (posedge M_AXI_ACLK)
+		if(M_AXI_ARESETN==0)
+			fifo_ptr <= 0;
+		else
+			case({axi4_wr_hit, axi4_rd_hit})
+				2'b00 : fifo_ptr <= fifo_ptr;
+				2'b01 : if(fifo_ptr==0)
+							fifo_ptr <= 0;
+						else
+							fifo_ptr <= fifo_ptr - 1;
+				2'b10 : fifo_ptr <= fifo_ptr + 1;
+				2'b00 : fifo_ptr <= fifo_ptr;
+			endcase
 
 	// User logic ends
 
