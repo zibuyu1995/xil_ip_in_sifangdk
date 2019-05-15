@@ -46,10 +46,8 @@
 
 		// Initiate AXI transactions
 		input wire  INIT_AXI_TXN,
-		// Asserts when transaction is complete
-		output wire  TXN_DONE,
 		// Asserts when ERROR is detected
-		output reg  ERROR,
+		output wire  ERROR,
 		// Global Clock Signal.
 		input wire  M_AXI_ACLK,
 		// Global Reset Singal. This Signal is Active Low
@@ -181,34 +179,17 @@
 	// number of write or read transaction.
 	 localparam integer C_TRANSACTIONS_NUM = clogb2(C_M_AXI_BURST_LEN-1);
 
-	// Burst length for transactions, in C_M_AXI_DATA_WIDTHs.
-	// Non-2^n lengths will eventually cause bursts across 4K address boundaries.
-	 localparam integer C_MASTER_LENGTH	= 12;
-	// total number of burst transfers is master length divided by burst length and burst size
-	 localparam integer C_NO_BURSTS_REQ = C_MASTER_LENGTH-clogb2((C_M_AXI_BURST_LEN*C_M_AXI_DATA_WIDTH/8)-1);
 	// Example State machine to initialize counter, initialize write transactions, 
 	// initialize read transactions and comparison of read data with the 
 	// written data words.
-	localparam [1:0] IDLE = 2'b00; // This state initiates AXI4Lite transaction 
-			// after the state machine changes state to INIT_WRITE 
-			// when there is 0 to 1 transition on INIT_AXI_TXN
-	localparam [1:0] INIT_WRITE = 2'b01; // This state initializes write transaction,
-			// once writes are done, the state machine 
-			// changes state to INIT_READ 
-	localparam [1:0] INIT_READ = 2'b10; // This state initializes read transaction
-			// once reads are done, the state machine 
-			// changes state to INIT_COMPARE 
-	localparam [1:0] INIT_COMPARE = 2'b11; // This state issues the status of comparison 
-			// of the written data with the read data	
 
 	localparam [1:0] WR_IDLE = 2'b00;
 	localparam [1:0] WR_DATA = 2'b01;
 	localparam [1:0] WR_DONE = 2'b10;
 
 	localparam [1:0] RD_IDLE = 2'b00;
-	localparam [1:0] RD_ADDR = 2'b01;
-	localparam [1:0] RD_DATA = 2'b10;
-	localparam [1:0] RD_DONE = 2'b11;
+	localparam [1:0] RD_DATA = 2'b01;
+	localparam [1:0] RD_DONE = 2'b10;
 
 	localparam [1:0] FIFO_IDLE = 2'b00;
 	localparam [1:0] FIFO_CACHE = 2'b01;
@@ -216,10 +197,8 @@
 	localparam [1:0] FIFO_RDWAIT = 2'b11;
 
 	localparam LAST_ADDR = C_M_AXI_TARGET_SLAVE_RANGE_ADDR - (C_M_AXI_BURST_LEN*C_M_AXI_DATA_WIDTH/8);
-	localparam MAX_PTR = C_M_AXI_TARGET_SLAVE_RANGE_ADDR / (C_M_AXI_BURST_LEN*C_M_AXI_DATA_WIDTH/8);
+	localparam MAX_PTR = (C_M_AXI_TARGET_SLAVE_RANGE_ADDR / (C_M_AXI_BURST_LEN*C_M_AXI_DATA_WIDTH/8))-1;
 	localparam PTR_WIDTH = clogb2(MAX_PTR-1) + 1;
-
-	reg [1:0] mst_exec_state;
 
 	// AXI4LITE signals
 	//AXI4 internal temp signals
@@ -237,20 +216,12 @@
 	//read beat count in a burst
 	reg [C_TRANSACTIONS_NUM : 0] 	read_index;
 	//size of C_M_AXI_BURST_LEN length burst in bytes
-	wire [C_TRANSACTIONS_NUM+2 : 0] 	burst_size_bytes;
-	//The burst counters are used to track the number of burst transfers of C_M_AXI_BURST_LEN burst length needed to transfer 2^C_MASTER_LENGTH bytes of data.
-	reg [C_NO_BURSTS_REQ : 0] 	write_burst_counter;
-	reg [C_NO_BURSTS_REQ : 0] 	read_burst_counter;
+	wire [C_TRANSACTIONS_NUM+8 : 0] 	burst_size_bytes;
 	reg  	start_single_burst_write;
 	reg  	start_single_burst_read;
-	reg  	writes_done;
-	reg  	reads_done;
 	reg  	error_reg;
-	reg  	compare_done;
-	reg  	read_mismatch;
 	reg  	burst_write_active;
 	reg  	burst_read_active;
-	reg [C_M_AXI_DATA_WIDTH-1 : 0] 	expected_rdata;
 	//Interface response error flags
 	wire  	write_resp_error;
 	wire  	read_resp_error;
@@ -258,7 +229,6 @@
 	wire  	rnext;
 	reg  	init_txn_ff;
 	reg  	init_txn_ff2;
-	reg  	init_txn_edge;
 	wire  	init_txn_pulse;
 
 	integer i;
@@ -284,6 +254,12 @@
 	reg [PTR_WIDTH-1:0] fifo_ptr = 'd0;
 	wire axi4_wr_hit;
 	wire axi4_rd_hit;
+	wire memory_full;
+	wire memory_empty;
+	wire axi4_rd_done;
+
+	reg fifo_wren_r;
+	reg [C_M_AXI_DATA_WIDTH-1:0] fifo_wrdata_r;
 
 	initial begin
 		for(i=0; i<C_M_AXI_BURST_LEN; i=i+1) begin
@@ -338,8 +314,6 @@
 	assign M_AXI_ARVALID	= axi_arvalid;
 	//Read and Read Response (R)
 	assign M_AXI_RREADY	= axi_rready;
-	//Example design I/O
-	assign TXN_DONE	= compare_done;
 	//Burst size in bytes
 	assign burst_size_bytes	= C_M_AXI_BURST_LEN * C_M_AXI_DATA_WIDTH/8;
 	assign init_txn_pulse	= (!init_txn_ff2) && init_txn_ff;
@@ -348,7 +322,12 @@
 	assign cache_b_hit = cache_b_ready&&(cache_sel_wr==0);
 
 	assign axi4_wr_hit = ({M_AXI_BVALID, axi_bready}==2'b11);
-	assign axi4_rd_hit = ({M_AXI_RLAST, M_AXI_RVALID, axi_rready}==3'b111);
+	assign axi4_rd_hit = ({(read_index == C_M_AXI_BURST_LEN-2), M_AXI_RVALID, axi_rready}==3'b111);
+
+	assign memory_full = (fifo_ptr>=MAX_PTR);
+	assign memory_empty = (fifo_ptr==0);
+
+	assign axi4_rd_done = ({(read_index == C_M_AXI_BURST_LEN-1), M_AXI_RVALID, axi_rready}==3'b111);
 
 
 	//Generate a pulse to initiate AXI transaction.
@@ -627,7 +606,10 @@
 	      end                                                            
 	    else if (M_AXI_ARREADY && axi_arvalid)                           
 	      begin                                                          
-	        axi_araddr <= axi_araddr + burst_size_bytes;                 
+	        if(axi_araddr>=LAST_ADDR)
+	      		axi_araddr <= 0;
+	      	else
+	        	axi_araddr <= axi_araddr + burst_size_bytes;                     
 	      end                                                            
 	    else                                                             
 	      axi_araddr <= axi_araddr;                                      
@@ -686,43 +668,9 @@
 	      end                                        
 	    // retain the previous value                 
 	  end                                            
-	                                                                        
-	//Check received read data against data generator                       
-	  always @(posedge M_AXI_ACLK)                                          
-	  begin                                                                 
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                   
-	      begin                                                             
-	        read_mismatch <= 1'b0;                                          
-	      end                                                               
-	    //Only check data when RVALID is active                             
-	    else if (rnext && (M_AXI_RDATA != expected_rdata))                  
-	      begin                                                             
-	        read_mismatch <= 1'b1;                                          
-	      end                                                               
-	    else                                                                
-	      read_mismatch <= 1'b0;                                            
-	  end                                                                   
-	                                                                        
+                                                                        
 	//Flag any read response errors                                         
 	  assign read_resp_error = axi_rready & M_AXI_RVALID & M_AXI_RRESP[1];  
-
-
-	//----------------------------------------
-	//Example design read check data generator
-	//-----------------------------------------
-
-	//Generate expected read data to check against actual read data
-
-	  always @(posedge M_AXI_ACLK)                     
-	  begin                                                  
-		if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)// || M_AXI_RLAST)             
-			expected_rdata <= 'b1;                            
-		else if (M_AXI_RVALID && axi_rready)                  
-			expected_rdata <= expected_rdata + 1;             
-		else                                                  
-			expected_rdata <= expected_rdata;                 
-	  end                                                    
-
 
 	//----------------------------------
 	//Example design error register
@@ -736,7 +684,7 @@
 	      begin                                                          
 	        error_reg <= 1'b0;                                           
 	      end                                                            
-	    else if (read_mismatch || write_resp_error || read_resp_error)   
+	    else if (write_resp_error || read_resp_error)   
 	      begin                                                          
 	        error_reg <= 1'b1;                                           
 	      end                                                            
@@ -769,145 +717,6 @@
 	// -Writes wait when a not read + active data burst count pass 
 	// a parameterized threshold
 
-	 // write_burst_counter counter keeps track with the number of burst transaction initiated            
-	 // against the number of burst transactions the master needs to initiate                                   
-	  always @(posedge M_AXI_ACLK)                                                                              
-	  begin                                                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                                                                                 
-	      begin                                                                                                 
-	        write_burst_counter <= 'b0;                                                                         
-	      end                                                                                                   
-	    else if (M_AXI_AWREADY && axi_awvalid)                                                                  
-	      begin                                                                                                 
-	        if (write_burst_counter[C_NO_BURSTS_REQ] == 1'b0)                                                   
-	          begin                                                                                             
-	            write_burst_counter <= write_burst_counter + 1'b1;                                              
-	            //write_burst_counter[C_NO_BURSTS_REQ] <= 1'b1;                                                 
-	          end                                                                                               
-	      end                                                                                                   
-	    else                                                                                                    
-	      write_burst_counter <= write_burst_counter;                                                           
-	  end                                                                                                       
-	                                                                                                            
-	 // read_burst_counter counter keeps track with the number of burst transaction initiated                   
-	 // against the number of burst transactions the master needs to initiate                                   
-	  always @(posedge M_AXI_ACLK)                                                                              
-	  begin                                                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                                                                 
-	      begin                                                                                                 
-	        read_burst_counter <= 'b0;                                                                          
-	      end                                                                                                   
-	    else if (M_AXI_ARREADY && axi_arvalid)                                                                  
-	      begin                                                                                                 
-	        if (read_burst_counter[C_NO_BURSTS_REQ] == 1'b0)                                                    
-	          begin                                                                                             
-	            read_burst_counter <= read_burst_counter + 1'b1;                                                
-	            //read_burst_counter[C_NO_BURSTS_REQ] <= 1'b1;                                                  
-	          end                                                                                               
-	      end                                                                                                   
-	    else                                                                                                    
-	      read_burst_counter <= read_burst_counter;                                                             
-	  end                                                                                                       
-	                                                                                                            
-	                                                                                                            
-	  //implement master command interface state machine                                                        
-	                                                                                                            
-	  // always @ ( posedge M_AXI_ACLK)                                                                            
-	  // begin                                                                                                     
-	  //   if (M_AXI_ARESETN == 1'b0 )                                                                             
-	  //     begin                                                                                                 
-	  //       // reset condition                                                                                  
-	  //       // All the signals are assigned default values under reset condition                                
-	  //       mst_exec_state      <= IDLE;                                                                
-	  //       start_single_burst_write <= 1'b0;                                                                   
-	  //       start_single_burst_read  <= 1'b0;                                                                   
-	  //       compare_done      <= 1'b0;                                                                          
-	  //       ERROR <= 1'b0;   
-	  //     end                                                                                                   
-	  //   else                                                                                                    
-	  //     begin                                                                                                 
-	                                                                                                            
-	  //       // state transition                                                                                 
-	  //       case (mst_exec_state)                                                                               
-	                                                                                                            
-	  //         IDLE:                                                                                     
-	  //           // This state is responsible to wait for user defined C_M_START_COUNT                           
-	  //           // number of clock cycles.                                                                      
-	  //           if ( init_txn_pulse == 1'b1)                                                      
-	  //             begin                                                                                         
-	  //               mst_exec_state  <= INIT_WRITE;                                                              
-	  //               ERROR <= 1'b0;
-	  //               compare_done <= 1'b0;
-	  //             end                                                                                           
-	  //           else                                                                                            
-	  //             begin                                                                                         
-	  //               mst_exec_state  <= IDLE;                                                            
-	  //             end                                                                                           
-	                                                                                                            
-	  //         INIT_WRITE:                                                                                       
-	  //           // This state is responsible to issue start_single_write pulse to                               
-	  //           // initiate a write transaction. Write transactions will be                                     
-	  //           // issued until burst_write_active signal is asserted.                                          
-	  //           // write controller                                                                             
-	  //           if (writes_done)                                                                                
-	  //             begin                                                                                         
-	  //               mst_exec_state <= INIT_READ;//                                                              
-	  //             end                                                                                           
-	  //           else                                                                                            
-	  //             begin                                                                                         
-	  //               mst_exec_state  <= INIT_WRITE;                                                              
-	                                                                                                            
-	  //               if (~axi_awvalid && ~start_single_burst_write && ~burst_write_active)                       
-	  //                 begin                                                                                     
-	  //                   start_single_burst_write <= 1'b1;                                                       
-	  //                 end                                                                                       
-	  //               else                                                                                        
-	  //                 begin                                                                                     
-	  //                   start_single_burst_write <= 1'b0; //Negate to generate a pulse                          
-	  //                 end                                                                                       
-	  //             end                                                                                           
-	                                                                                                            
-	  //         INIT_READ:                                                                                        
-	  //           // This state is responsible to issue start_single_read pulse to                                
-	  //           // initiate a read transaction. Read transactions will be                                       
-	  //           // issued until burst_read_active signal is asserted.                                           
-	  //           // read controller                                                                              
-	  //           if (reads_done)                                                                                 
-	  //             begin                                                                                         
-	  //               mst_exec_state <= INIT_COMPARE;                                                             
-	  //             end                                                                                           
-	  //           else                                                                                            
-	  //             begin                                                                                         
-	  //               mst_exec_state  <= INIT_READ;                                                               
-	                                                                                                            
-	  //               if (~axi_arvalid && ~burst_read_active && ~start_single_burst_read)                         
-	  //                 begin                                                                                     
-	  //                   start_single_burst_read <= 1'b1;                                                        
-	  //                 end                                                                                       
-	  //              else                                                                                         
-	  //                begin                                                                                      
-	  //                  start_single_burst_read <= 1'b0; //Negate to generate a pulse                            
-	  //                end                                                                                        
-	  //             end                                                                                           
-	                                                                                                            
-	  //         INIT_COMPARE:                                                                                     
-	  //           // This state is responsible to issue the state of comparison                                   
-	  //           // of written data with the read data. If no error flags are set,                               
-	  //           // compare_done signal will be asseted to indicate success.                                     
-	  //           //if (~error_reg)                                                                               
-	  //           begin                                                                                           
-	  //             ERROR <= error_reg;
-	  //             mst_exec_state <= IDLE;                                                               
-	  //             compare_done <= 1'b1;                                                                         
-	  //           end                                                                                             
-	  //         default :                                                                                         
-	  //           begin                                                                                           
-	  //             mst_exec_state  <= IDLE;                                                              
-	  //           end                                                                                             
-	  //       endcase                                                                                             
-	  //     end                                                                                                   
-	  // end //MASTER_EXECUTION_PROC   
-
 	                                                                                                            
 	  // burst_write_active signal is asserted when there is a burst write transaction                          
 	  // is initiated by the assertion of start_single_burst_write. burst_write_active                          
@@ -926,23 +735,6 @@
 	                                                                                                            
 	 // Check for last write completion.                                                                        
 	                                                                                                            
-	 // This logic is to qualify the last write count with the final write                                      
-	 // response. This demonstrates how to confirm that a write has been                                        
-	 // committed.                                                                                              
-	                                                                                                            
-	  always @(posedge M_AXI_ACLK)                                                                              
-	  begin                                                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                                                                 
-	      writes_done <= 1'b0;                                                                                  
-	                                                                                                            
-	    //The writes_done should be associated with a bready response                                           
-	    //else if (M_AXI_BVALID && axi_bready && (write_burst_counter == {(C_NO_BURSTS_REQ-1){1}}) && axi_wlast)
-	    else if (M_AXI_BVALID && (write_burst_counter[C_NO_BURSTS_REQ]) && axi_bready)                          
-	      writes_done <= 1'b1;                                                                                  
-	    else                                                                                                    
-	      writes_done <= writes_done;                                                                           
-	    end                                                                                                     
-	                                                                                                            
 	  // burst_read_active signal is asserted when there is a burst write transaction                           
 	  // is initiated by the assertion of start_single_burst_write. start_single_burst_read                     
 	  // signal remains asserted until the burst read is accepted by the master                                 
@@ -960,29 +752,12 @@
 	                                                                                                            
 	                                                                                                            
 	 // Check for last read completion.                                                                         
-	                                                                                                            
-	 // This logic is to qualify the last read count with the final read                                        
-	 // response. This demonstrates how to confirm that a read has been                                         
-	 // committed.                                                                                              
-	                                                                                                            
-	  always @(posedge M_AXI_ACLK)                                                                              
-	  begin                                                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                                                                 
-	      reads_done <= 1'b0;                                                                                   
-	                                                                                                            
-	    //The reads_done should be associated with a rready response                                            
-	    //else if (M_AXI_BVALID && axi_bready && (write_burst_counter == {(C_NO_BURSTS_REQ-1){1}}) && axi_wlast)
-	    else if (M_AXI_RVALID && axi_rready && (read_index == C_M_AXI_BURST_LEN-1) && (read_burst_counter[C_NO_BURSTS_REQ]))
-	      reads_done <= 1'b1;                                                                                   
-	    else                                                                                                    
-	      reads_done <= reads_done;                                                                             
-	    end                                                                                                     
 
 	// Add user logic here
 
 	// fifo read state machine
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0)
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
 			fifo_rd_state <= FIFO_IDLE;
 		else 
 			case(fifo_rd_state)
@@ -1016,7 +791,7 @@
 	assign fifo_rden = (fifo_rd_state==FIFO_CACHE);
 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0)
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
 			fifo_rdcnt <= 0;
 		else if(fifo_rden)
 			if(fifo_rdcnt==C_M_AXI_BURST_LEN-1)
@@ -1028,7 +803,7 @@
 
 	// fifo cache 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0) begin
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
 			for(i=0; i<C_M_AXI_BURST_LEN; i=i+1) begin
 				rd_cache_a[i] <= {C_M_AXI_DATA_WIDTH{1'b0}};
 				rd_cache_b[i] <= {C_M_AXI_DATA_WIDTH{1'b0}};
@@ -1043,7 +818,7 @@
 
 	// fifo cache ready & sel signal
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0) begin
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
 			cache_a_ready <= 1'b0;
 			cache_b_ready <= 1'b0;
 			cache_sel <= 1'b0;
@@ -1073,14 +848,14 @@
 
 	// cache to axi4 write
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0) begin
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
 			start_single_burst_write <= 0;
 			mst_wr_state <= WR_IDLE;
 		end
 		else
 			case(mst_wr_state)
 				WR_IDLE : begin
-					if(cache_a_ready==1'b1||cache_b_ready==1'b1) begin
+					if((cache_a_ready==1'b1||cache_b_ready==1'b1)&&(memory_full==0)) begin
 						mst_wr_state <= WR_DATA;
 					end
 					else begin
@@ -1089,7 +864,7 @@
 				end
 
 				WR_DATA : begin
-					if({M_AXI_BVALID, axi_bready, cache_a_hit, cache_b_hit}==4'b1100) begin
+					if(({axi4_wr_hit, cache_a_hit, cache_b_hit}==3'b100)||({axi4_wr_hit, memory_full}==2'b11)) begin
 						mst_wr_state <= WR_DONE;
 					end
 					else begin
@@ -1109,7 +884,7 @@
 			endcase
 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0) begin
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
 			cache_a_invalid <= 0;
 			cache_b_invalid <= 0;
 			cache_sel_wr <= 0;
@@ -1133,7 +908,7 @@
 		end
 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0)
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
 			fifo_ptr <= 0;
 		else
 			case({axi4_wr_hit, axi4_rd_hit})
@@ -1143,8 +918,54 @@
 						else
 							fifo_ptr <= fifo_ptr - 1;
 				2'b10 : fifo_ptr <= fifo_ptr + 1;
-				2'b00 : fifo_ptr <= fifo_ptr;
+				2'b11 : fifo_ptr <= fifo_ptr;
 			endcase
+
+	always @ (posedge M_AXI_ACLK)
+		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
+			start_single_burst_read <= 0;
+			mst_rd_state <= RD_IDLE;
+		end
+		else 
+			case(mst_rd_state)
+				RD_IDLE : begin
+					if({memory_empty, fifo_prog_full}==2'b00) begin
+						mst_rd_state <= RD_DATA;
+					end
+					else begin
+						mst_rd_state <= RD_IDLE;
+					end
+				end
+
+				RD_DATA : begin
+					if(((memory_empty==1)||(fifo_prog_full==1))&&(axi4_rd_done)) begin
+						mst_rd_state <= RD_DONE;
+					end
+					else begin
+						mst_rd_state <= RD_DATA;
+						if({axi_arvalid, burst_read_active, start_single_burst_read}==3'b000) begin
+							start_single_burst_read <= 1'b1;
+						end
+						else begin
+							start_single_burst_read <= 1'b0;
+						end
+					end
+				end
+
+				default : begin
+					start_single_burst_read <= 0;
+					mst_rd_state <= RD_IDLE;
+				end
+			endcase
+
+	always @ (posedge M_AXI_ACLK) begin
+		fifo_wren_r <= (M_AXI_RVALID && axi_rready);
+		fifo_wrdata_r <= M_AXI_RDATA;
+	end
+
+	assign fifo_wren = fifo_wren_r;
+	assign fifo_wrdata = fifo_wrdata_r;
+	assign ERROR = error_reg;
 
 	// User logic ends
 

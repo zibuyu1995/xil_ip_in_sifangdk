@@ -34,12 +34,12 @@ module axi4_fifo_ctrl_tb;
 
 	// (*NOTE*) replace reset, clock, others
 
-	parameter C_M00_AXI_TARGET_SLAVE_RANGE_ADDR = 32'h3FFFFFFF;
+	parameter C_M00_AXI_TARGET_SLAVE_RANGE_ADDR = 32'h00000800;
 	parameter C_M00_AXI_TARGET_SLAVE_BASE_ADDR  = 32'h00000000;
 	parameter integer C_M00_AXI_BURST_LEN       = 8;
-	parameter integer C_M00_AXI_ID_WIDTH        = 1;
+	parameter integer C_M00_AXI_ID_WIDTH        = 4;
 	parameter integer C_M00_AXI_ADDR_WIDTH      = 32;
-	parameter integer C_M00_AXI_DATA_WIDTH      = 32;
+	parameter integer C_M00_AXI_DATA_WIDTH      = 256;
 	parameter integer C_M00_AXI_AWUSER_WIDTH    = 0;
 	parameter integer C_M00_AXI_ARUSER_WIDTH    = 0;
 	parameter integer C_M00_AXI_WUSER_WIDTH     = 0;
@@ -127,7 +127,6 @@ module axi4_fifo_ctrl_tb;
 		.fifo_full           (fifo_full           ),
 		.fifo_prog_full      (fifo_prog_full      ),
 		.m00_axi_init_axi_txn(m00_axi_init_axi_txn),
-		.m00_axi_txn_done    (m00_axi_txn_done    ),
 		.m00_axi_error       (m00_axi_error       ),
 		.m00_axi_aclk        (m00_axi_aclk        ),
 		.m00_axi_aresetn     (m00_axi_aresetn     ),
@@ -220,7 +219,6 @@ module axi4_fifo_ctrl_tb;
 		.dout      (fifo_rddata     ), // output wire [31 : 0] dout
 		.full      (                ), // output wire full
 		.empty     (fifo_empty      ), // output wire empty
-		.prog_full (                ), // output wire prog_full
 		.prog_empty(fifo_prog_empty )  // output wire prog_empty
 	);
 
@@ -230,6 +228,8 @@ module axi4_fifo_ctrl_tb;
 	initial begin
 		rdfifo_wren = '0;
 		rdfifo_wrdata = '0;
+		fifo_full = '0;
+		fifo_prog_full = '0;
 		// do something
 		@(posedge m00_axi_aresetn)
 		repeat(10)@(posedge m00_axi_aclk);

@@ -39,7 +39,6 @@
 
 		// Ports of Axi Master Bus Interface M00_AXI
 		input wire  m00_axi_init_axi_txn,
-		output wire  m00_axi_txn_done,
 		output wire  m00_axi_error,
 		input wire  m00_axi_aclk,
 		input wire  m00_axi_aresetn,
@@ -109,7 +108,6 @@
 		.fifo_full(fifo_full),
 		.fifo_prog_full(fifo_prog_full),
 		.INIT_AXI_TXN(m00_axi_init_axi_txn),
-		.TXN_DONE(m00_axi_txn_done),
 		.ERROR(m00_axi_error),
 		.M_AXI_ACLK(m00_axi_aclk),
 		.M_AXI_ARESETN(m00_axi_aresetn),
