@@ -25,7 +25,10 @@
 		output wire [1:0] daq_mode,
 		output wire [1:0] daq_trig_src,
 		output wire [31:0] daq_trig_len,
+		output wire daq_data_src,
 		output wire daq_soft_trig,
+
+		output wire [31:0] pcie_recv_len,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -92,38 +95,40 @@
 		.daq_mode        (daq_mode          ),
 		.daq_trig_src    (daq_trig_src      ),
 		.daq_trig_len    (daq_trig_len      ),
-		.daq_soft_trig   (daq_soft_trig     )
+		.daq_soft_trig   (daq_soft_trig     ),
+		.pcie_recv_len   (pcie_recv_len     ),
+		.daq_data_src    (daq_data_src      )
 	);
 
 	// Add user logic here
 	cdc_sync_bits #(
 		.NUM_OF_BITS(1),
-		.ASYNC_CLK(1)
+		.ASYNC_CLK  (1)
 	) cdc_sync_ddr3_initialized_i0 (
-		.in         (ddr3_initialized),
-		.out_resetn (s00_axi_aresetn),
-		.out_clk    (s00_axi_aclk),
-		.out        (ddr3_initialized_w)
+		.cdc_in    (ddr3_initialized  ),
+		.out_resetn(s00_axi_aresetn   ),
+		.out_clk   (s00_axi_aclk      ),
+		.cdc_out   (ddr3_initialized_w)
 	);
 
 	cdc_sync_bits #(
 		.NUM_OF_BITS(1),
-		.ASYNC_CLK(1)
+		.ASYNC_CLK  (1)
 	) cdc_sync_ddr3_fifo_full_i0 (
-		.in         (ddr3_fifo_full),
-		.out_resetn (s00_axi_aresetn),
-		.out_clk    (s00_axi_aclk),
-		.out        (ddr3_fifo_full_w)
+		.cdc_in    (ddr3_fifo_full  ),
+		.out_resetn(s00_axi_aresetn ),
+		.out_clk   (s00_axi_aclk    ),
+		.cdc_out   (ddr3_fifo_full_w)
 	);
 
 	cdc_sync_bits #(
 		.NUM_OF_BITS(1),
-		.ASYNC_CLK(1)
+		.ASYNC_CLK  (1)
 	) cdc_sync_ddr3_rw_error_i0 (
-		.in         (ddr3_rw_error),
-		.out_resetn (s00_axi_aresetn),
-		.out_clk    (s00_axi_aclk),
-		.out        (ddr3_rw_error_w)
+		.cdc_in    (ddr3_rw_error  ),
+		.out_resetn(s00_axi_aresetn),
+		.out_clk   (s00_axi_aclk   ),
+		.cdc_out   (ddr3_rw_error_w)
 	);
 
 

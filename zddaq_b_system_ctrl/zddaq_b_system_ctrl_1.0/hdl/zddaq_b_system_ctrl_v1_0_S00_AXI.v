@@ -25,7 +25,10 @@
 		output wire [1:0] daq_mode,
 		output wire [1:0] daq_trig_src,
 		output wire [31:0] daq_trig_len,
+		output wire daq_data_src,
 		output wire daq_soft_trig,
+
+		output wire [31:0] pcie_recv_len,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -123,6 +126,8 @@
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg6;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg7;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg8;
+	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg9;
+	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg12;
 	wire	 slv_reg_rden;
 	wire	 slv_reg_wren;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
@@ -255,6 +260,8 @@
 	      slv_reg6 <= 0;
 	      slv_reg7 <= 0;
 	      slv_reg8 <= 0;
+	      slv_reg9 <= 0;
+	      slv_reg12<= 0;
 	    end 
 	  else begin
 	    if (slv_reg_wren)
@@ -316,12 +323,26 @@
 	                // Slave register 3
 	                slv_reg7[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end 
-	          6'h8:		//DAQ Soft Triger  0--Stop 1--Start
+	          6'h8:		//DAQ Data Source  0--Sim 1--ADC
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 3
 	                slv_reg8[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	              end
+	          6'h9:		//DAQ Soft Triger  0--Stop 1--Start
+	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+	                // Respective byte enables are asserted as per write strobes 
+	                // Slave register 3
+	                slv_reg9[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	              end 
+	          6'hC:		//PCIE Receive Length(DW)
+	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+	                // Respective byte enables are asserted as per write strobes 
+	                // Slave register 3
+	                slv_reg12[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end 
 	          default : begin
 	                      slv_reg0 <= slv_reg0;
@@ -333,6 +354,8 @@
 	                      slv_reg6 <= slv_reg6;
 	                      slv_reg7 <= slv_reg7;
 	                      slv_reg8 <= slv_reg8;
+	                      slv_reg9 <= slv_reg9;
+	                      slv_reg12<= slv_reg12;
 	                    end
 	        endcase
 	      end
@@ -454,6 +477,8 @@
 	        6'h6   : reg_data_out <= {30'd0, slv_reg6[1:0]};
 	        6'h7   : reg_data_out <= slv_reg7;
 	        6'h8   : reg_data_out <= {31'd0, slv_reg8[0]};
+	        6'h9   : reg_data_out <= {31'd0, slv_reg9[0]};
+	        6'hC   : reg_data_out <= slv_reg12;
 	        6'h30  : reg_data_out <= {31'd0, ddr3_initialized};
 	        6'h31  : reg_data_out <= {31'd0, ddr3_fifo_full};
 	        6'h32  : reg_data_out <= {31'd0, ddr3_rw_error};
@@ -515,7 +540,9 @@
 	assign daq_mode = slv_reg5[1:0];
 	assign daq_trig_src = slv_reg6[1:0];
 	assign daq_trig_len = slv_reg7;
-	assign daq_soft_trig = slv_reg8[0];
+	assign daq_data_src = slv_reg8[0];
+	assign daq_soft_trig = slv_reg9[0];
+	assign pcie_recv_len = slv_reg12;
 	// User logic ends
 
 	endmodule
