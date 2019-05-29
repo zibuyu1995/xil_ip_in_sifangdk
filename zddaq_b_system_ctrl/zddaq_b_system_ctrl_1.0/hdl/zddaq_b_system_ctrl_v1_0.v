@@ -29,6 +29,7 @@
 		output wire daq_soft_trig,
 
 		output wire [31:0] pcie_recv_len,
+		output wire pcie_xfer_en,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -97,7 +98,8 @@
 		.daq_trig_len    (daq_trig_len      ),
 		.daq_soft_trig   (daq_soft_trig     ),
 		.pcie_recv_len   (pcie_recv_len     ),
-		.daq_data_src    (daq_data_src      )
+		.daq_data_src    (daq_data_src      ),
+		.pcie_xfer_en    (pcie_xfer_en      )
 	);
 
 	// Add user logic here

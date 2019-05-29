@@ -29,6 +29,7 @@
 		output wire daq_soft_trig,
 
 		output wire [31:0] pcie_recv_len,
+		output wire pcie_xfer_en,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -128,6 +129,7 @@
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg8;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg9;
 	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg12;
+	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg13;
 	wire	 slv_reg_rden;
 	wire	 slv_reg_wren;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
@@ -136,11 +138,11 @@
 
 	reg init_txn_pulse = 0;
 	reg [PULSE_WIDTH-1:0] init_txn_pulse_r = 'd0;
-	wire init_txn_done;
+	wire init_txn_flag;
 
 	reg adc_sync_pulse = 0;
 	reg [PULSE_WIDTH-1:0] adc_sync_pulse_r = 'd0;
-	wire adc_sync_done;
+	wire adc_sync_flag;
 
 	// I/O Connections assignments
 
@@ -153,8 +155,8 @@
 	assign S_AXI_RRESP	= axi_rresp;
 	assign S_AXI_RVALID	= axi_rvalid;
 
-	assign init_txn_done = &init_txn_pulse_r;
-	assign adc_sync_done = &adc_sync_pulse_r;
+	assign init_txn_flag = |init_txn_pulse_r;
+	assign adc_sync_flag = |adc_sync_pulse_r;
 	// Implement axi_awready generation
 	// axi_awready is asserted for one S_AXI_ACLK clock cycle when both
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
@@ -262,6 +264,7 @@
 	      slv_reg8 <= 0;
 	      slv_reg9 <= 0;
 	      slv_reg12<= 0;
+	      slv_reg13<= 0;
 	    end 
 	  else begin
 	    if (slv_reg_wren)
@@ -343,12 +346,19 @@
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 3
 	                slv_reg12[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	              end
+	          6'hD:		//PCIE Transfer Enable
+	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+	                // Respective byte enables are asserted as per write strobes 
+	                // Slave register 3
+	                slv_reg13[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end 
 	          default : begin
 	                      slv_reg0 <= slv_reg0;
 	                      slv_reg1 <= slv_reg1;
 	                      slv_reg2 <= slv_reg2;
-	                      slv_reg3 <= 'd0;
+	                      slv_reg3 <= slv_reg3;
 	                      slv_reg4 <= 'd0;
 	                      slv_reg5 <= slv_reg5;
 	                      slv_reg6 <= slv_reg6;
@@ -356,11 +366,12 @@
 	                      slv_reg8 <= slv_reg8;
 	                      slv_reg9 <= slv_reg9;
 	                      slv_reg12<= slv_reg12;
+	                      slv_reg13<= slv_reg13;
 	                    end
 	        endcase
 	      end
 	      else begin
-	      	slv_reg3 <= 'd0;
+	      	// slv_reg3 <= 'd0;
             slv_reg4 <= 'd0;
 	      end
 	  end
@@ -471,7 +482,7 @@
 	        6'h0   : reg_data_out <= 32'd1;
 	        6'h1   : reg_data_out <= 32'd0;
 	        6'h2   : reg_data_out <= 32'd10;
-	        6'h3   : reg_data_out <= 32'd0;
+	        6'h3   : reg_data_out <= slv_reg3;
 	        6'h4   : reg_data_out <= 32'd0;
 	        6'h5   : reg_data_out <= {30'd0, slv_reg5[1:0]};
 	        6'h6   : reg_data_out <= {30'd0, slv_reg6[1:0]};
@@ -479,6 +490,7 @@
 	        6'h8   : reg_data_out <= {31'd0, slv_reg8[0]};
 	        6'h9   : reg_data_out <= {31'd0, slv_reg9[0]};
 	        6'hC   : reg_data_out <= slv_reg12;
+	        6'hD   : reg_data_out <= {31'd0, slv_reg13[0]};
 	        6'h30  : reg_data_out <= {31'd0, ddr3_initialized};
 	        6'h31  : reg_data_out <= {31'd0, ddr3_fifo_full};
 	        6'h32  : reg_data_out <= {31'd0, ddr3_rw_error};
@@ -506,36 +518,28 @@
 	end    
 
 	// Add user logic here
-	always @ (posedge S_AXI_ACLK)
-		if(S_AXI_ARESETN==1'b0) 
-			init_txn_pulse <= 0;
-		else if(slv_reg3[0]==1'b1)
-			init_txn_pulse <= 1'b1;
-		else if(init_txn_done)
-			init_txn_pulse <= 1'b0;
-		else
-			init_txn_pulse <= init_txn_pulse;
+	// always @ (posedge S_AXI_ACLK)
+	// 	if(S_AXI_ARESETN==1'b0) 
+	// 		init_txn_pulse <= 0;
+	// 	else 
+	// 		init_txn_pulse <= init_txn_flag;
 
-	always @ (posedge S_AXI_ACLK) begin
-		init_txn_pulse_r <= {init_txn_pulse_r[PULSE_WIDTH-2:0], init_txn_pulse};
-	end
+	// always @ (posedge S_AXI_ACLK) begin
+	// 	init_txn_pulse_r <= {init_txn_pulse_r[PULSE_WIDTH-2:0], slv_reg3[0]};
+	// end
 
 	always @ (posedge S_AXI_ACLK)
 		if(S_AXI_ARESETN==1'b0) 
 			adc_sync_pulse <= 0;
-		else if(slv_reg4[0]==1'b1)
-			adc_sync_pulse <= 1'b1;
-		else if(adc_sync_done)
-			adc_sync_pulse <= 1'b0;
 		else
-			adc_sync_pulse <= adc_sync_pulse;
+			adc_sync_pulse <= adc_sync_flag;
 
 	always @ (posedge S_AXI_ACLK) begin
-		adc_sync_pulse_r <= {adc_sync_pulse_r[PULSE_WIDTH-2:0], adc_sync_pulse};
+		adc_sync_pulse_r <= {adc_sync_pulse_r[PULSE_WIDTH-2:0], slv_reg4[0]};
 	end
 
 
-	assign init_txn = init_txn_pulse;
+	assign init_txn = slv_reg3[0];
 	assign adc_sync = adc_sync_pulse;
 	assign daq_mode = slv_reg5[1:0];
 	assign daq_trig_src = slv_reg6[1:0];
@@ -543,6 +547,7 @@
 	assign daq_data_src = slv_reg8[0];
 	assign daq_soft_trig = slv_reg9[0];
 	assign pcie_recv_len = slv_reg12;
+	assign pcie_xfer_en = slv_reg13;
 	// User logic ends
 
 	endmodule
