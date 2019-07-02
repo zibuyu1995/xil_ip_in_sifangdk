@@ -30,6 +30,19 @@
 
 		output wire [31:0] pcie_recv_len,
 		output wire pcie_xfer_en,
+
+		input wire [ 6:0] irigb_seconds,
+		input wire [ 6:0] irigb_minutes,
+		input wire [ 5:0] irigb_hours,
+		input wire [ 9:0] irigb_days,
+		input wire [ 7:0] irigb_years,
+		input wire [17:0] irigb_cntls,
+		input wire [16:0] irigb_sbs,
+		input wire        irigb_valid,
+
+		output wire [1:0] mac_speed,
+		output wire update_mac_speed,
+
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -61,6 +74,15 @@
 	wire ddr3_initialized_w;
 	wire ddr3_fifo_full_w;
 	wire ddr3_rw_error_w;
+
+	wire [ 6:0] irigb_seconds_w;
+	wire [ 6:0] irigb_minutes_w;
+	wire [ 5:0] irigb_hours_w;
+	wire [ 9:0] irigb_days_w;
+	wire [ 7:0] irigb_years_w;
+	wire [17:0] irigb_cntls_w;
+	wire [16:0] irigb_sbs_w;
+	wire        irigb_valid_w;
 // Instantiation of Axi Bus Interface S00_AXI
 	zddaq_b_system_ctrl_v1_0_S00_AXI #(
 		.PULSE_WIDTH       (PULSE_WIDTH         ),
@@ -99,7 +121,17 @@
 		.daq_soft_trig   (daq_soft_trig     ),
 		.pcie_recv_len   (pcie_recv_len     ),
 		.daq_data_src    (daq_data_src      ),
-		.pcie_xfer_en    (pcie_xfer_en      )
+		.pcie_xfer_en    (pcie_xfer_en      ),
+		.irigb_seconds   (irigb_seconds_w   ),
+		.irigb_minutes   (irigb_minutes_w   ),
+		.irigb_hours     (irigb_hours_w     ),
+		.irigb_days      (irigb_days_w      ),
+		.irigb_years     (irigb_years_w     ),
+		.irigb_cntls     (irigb_cntls_w     ),
+		.irigb_sbs       (irigb_sbs_w       ),
+		.irigb_valid     (irigb_valid_w     ),
+		.mac_speed       (mac_speed         ),
+		.update_mac_speed(update_mac_speed  )
 	);
 
 	// Add user logic here
@@ -133,6 +165,25 @@
 		.cdc_out   (ddr3_rw_error_w)
 	);
 
+	cdc_sync_bits #(
+		.NUM_OF_BITS(38),
+		.ASYNC_CLK  (1)
+	) cdc_sync_irigb_time_i0 (
+		.cdc_in    ({irigb_years, irigb_days, irigb_hours, irigb_minutes, irigb_seconds}),
+		.out_resetn(s00_axi_aresetn),
+		.out_clk   (s00_axi_aclk   ),
+		.cdc_out   ({irigb_years_w, irigb_days_w, irigb_hours_w, irigb_minutes_w, irigb_seconds_w})
+	);
+
+	cdc_sync_bits #(
+		.NUM_OF_BITS(36),
+		.ASYNC_CLK  (1)
+	) cdc_sync_irigb_ctrl_i0 (
+		.cdc_in    ({irigb_cntls, irigb_sbs, irigb_valid}),
+		.out_resetn(s00_axi_aresetn),
+		.out_clk   (s00_axi_aclk   ),
+		.cdc_out   ({irigb_cntls_w, irigb_sbs_w, irigb_valid_w})
+	);
 
 	// User logic ends
 

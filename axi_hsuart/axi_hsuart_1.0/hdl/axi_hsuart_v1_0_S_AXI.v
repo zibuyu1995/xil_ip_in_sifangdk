@@ -1,47 +1,36 @@
 
 `timescale 1 ns / 1 ps
 
-	module zddaq_b_system_ctrl_v1_0_S00_AXI #
+	module axi_hsuart_v1_0_S_AXI #
 	(
 		// Users to add parameters here
-		parameter integer PULSE_WIDTH = 32,
+
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
 		// Width of S_AXI data bus
 		parameter integer C_S_AXI_DATA_WIDTH	= 32,
 		// Width of S_AXI address bus
-		parameter integer C_S_AXI_ADDR_WIDTH	= 8
+		parameter integer C_S_AXI_ADDR_WIDTH	= 32
 	)
 	(
 		// Users to add ports here
-		input wire ddr3_initialized,
-		input wire ddr3_fifo_full,
-		input wire ddr3_rw_error,
+		output uart_tx_fiforst,
+		output uart_rx_fiforst,
+		output enable_intr,
 
-		output wire init_txn,
-		output wire adc_sync,
+		input [7:0] uart_rx_data,
+		output uart_rx_ren, 
+		input uart_rx_valid,
+		input uart_rx_full,
 
-		output wire [1:0] daq_mode,
-		output wire [1:0] daq_trig_src,
-		output wire [31:0] daq_trig_len,
-		output wire daq_data_src,
-		output wire daq_soft_trig,
+		output [7:0] uart_tx_data,
+		output uart_tx_wen,
+		input uart_tx_full,
+		input uart_tx_empty,
 
-		output wire [31:0] pcie_recv_len,
-		output wire pcie_xfer_en,
+		input frame_err,
 
-		input wire [ 6:0] irigb_seconds,
-		input wire [ 6:0] irigb_minutes,
-		input wire [ 5:0] irigb_hours,
-		input wire [ 9:0] irigb_days,
-		input wire [ 7:0] irigb_years,
-		input wire [17:0] irigb_cntls,
-		input wire [16:0] irigb_sbs,
-		input wire        irigb_valid,
-
-		output wire [1:0] mac_speed,
-		output wire update_mac_speed,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -125,38 +114,23 @@
 	// ADDR_LSB = 2 for 32 bits (n downto 2)
 	// ADDR_LSB = 3 for 64 bits (n downto 3)
 	localparam integer ADDR_LSB = (C_S_AXI_DATA_WIDTH/32) + 1;
-	localparam integer OPT_MEM_ADDR_BITS = C_S_AXI_ADDR_WIDTH - ADDR_LSB - 1;
+	localparam integer OPT_MEM_ADDR_BITS = 1;
 	//----------------------------------------------
 	//-- Signals for user logic register space example
 	//------------------------------------------------
-	//-- Slave Registers 
+	//-- Number of Slave Registers 4
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg0;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg1;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg2;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg3;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg4;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg5;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg6;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg7;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg8;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg9;
-	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg12;
-	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg13;
-	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg16;
-	reg [C_S_AXI_DATA_WIDTH-1:0]    slv_reg17;
 	wire	 slv_reg_rden;
 	wire	 slv_reg_wren;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
 	integer	 byte_index;
 	reg	 aw_en;
 
-	reg init_txn_pulse = 0;
-	reg [PULSE_WIDTH-1:0] init_txn_pulse_r = 'd0;
-	wire init_txn_flag;
-
-	reg adc_sync_pulse = 0;
-	reg [PULSE_WIDTH-1:0] adc_sync_pulse_r = 'd0;
-	wire adc_sync_flag;
+	reg uart_rx_ren_r;
+	reg uart_tx_wen_r;
 
 	// I/O Connections assignments
 
@@ -168,9 +142,6 @@
 	assign S_AXI_RDATA	= axi_rdata;
 	assign S_AXI_RRESP	= axi_rresp;
 	assign S_AXI_RVALID	= axi_rvalid;
-
-	assign init_txn_flag = |init_txn_pulse_r;
-	assign adc_sync_flag = |adc_sync_pulse_r;
 	// Implement axi_awready generation
 	// axi_awready is asserted for one S_AXI_ACLK clock cycle when both
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
@@ -271,141 +242,56 @@
 	      slv_reg1 <= 0;
 	      slv_reg2 <= 0;
 	      slv_reg3 <= 0;
-	      slv_reg4 <= 0;
-	      slv_reg5 <= 0;
-	      slv_reg6 <= 0;
-	      slv_reg7 <= 0;
-	      slv_reg8 <= 0;
-	      slv_reg9 <= 0;
-	      slv_reg12<= 0;
-	      slv_reg13<= 0;
-	      slv_reg16<= 0;
-	      slv_reg17<= 0;
+	      uart_tx_wen_r <= 0;
 	    end 
 	  else begin
 	    if (slv_reg_wren)
 	      begin
 	        case ( axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	          6'h0:
+	          2'h0:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 0
 	                slv_reg0[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
-	          6'h1:
+	          2'h1:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 1
 	                slv_reg1[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	                uart_tx_wen_r <= 1'b1;
 	              end  
-	          6'h2:
+	          2'h2:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 2
 	                slv_reg2[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
-	          6'h3:		//DAQ System Soft Reset  0->1--Reset
+	          2'h3:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 3
 	                slv_reg3[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end
-	          6'h4:		//ADC Synchronize  0->1--Synchronize
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg4[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end
-	          6'h5:		//DAQ Mode  00--continue mode 01--fixed length mode
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg5[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end 
-	          6'h6:		//DAQ Trigger Source  00--Soft Trigger 01--External Trigger
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg6[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end 
-	          6'h7:		//DAQ Trigger Length  
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg7[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end 
-	          6'h8:		//DAQ Data Source  0--Sim 1--ADC
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg8[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end
-	          6'h9:		//DAQ Soft Triger  0--Stop 1--Start
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg9[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end 
-	          6'hC:		//PCIE Receive Length(DW)
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg12[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end
-	          6'hD:		//PCIE Transfer Enable
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg13[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end 
-	          6'h10:	//mac speed config
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg16[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
-	          6'h11:	//mac speed update
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg17[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end 
-
 	          default : begin
 	                      slv_reg0 <= slv_reg0;
 	                      slv_reg1 <= slv_reg1;
 	                      slv_reg2 <= slv_reg2;
 	                      slv_reg3 <= slv_reg3;
-	                      slv_reg4 <= 'd0;
-	                      slv_reg5 <= slv_reg5;
-	                      slv_reg6 <= slv_reg6;
-	                      slv_reg7 <= slv_reg7;
-	                      slv_reg8 <= slv_reg8;
-	                      slv_reg9 <= slv_reg9;
-	                      slv_reg12<= slv_reg12;
-	                      slv_reg13<= slv_reg13;
-	                      slv_reg16<= slv_reg16;
-	                      slv_reg17<= slv_reg17;
+	                      uart_tx_wen_r <= 0;
+	                      slv_reg2[0] <= 0;
+	      				  slv_reg2[1] <= 0;
 	                    end
 	        endcase
 	      end
 	      else begin
-	      	// slv_reg3 <= 'd0;
-            slv_reg4 <= 'd0;
+			uart_tx_wen_r <= 0;
+			slv_reg2[0] <= 0;
+			slv_reg2[1] <= 0;
 	      end
 	  end
 	end    
@@ -512,30 +398,10 @@
 	begin
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	        6'h0   : reg_data_out <= 32'd1;
-	        6'h1   : reg_data_out <= 32'd0;
-	        6'h2   : reg_data_out <= 32'd10;
-	        6'h3   : reg_data_out <= slv_reg3;
-	        6'h4   : reg_data_out <= 32'd0;
-	        6'h5   : reg_data_out <= {30'd0, slv_reg5[1:0]};
-	        6'h6   : reg_data_out <= {30'd0, slv_reg6[1:0]};
-	        6'h7   : reg_data_out <= slv_reg7;
-	        6'h8   : reg_data_out <= {31'd0, slv_reg8[0]};
-	        6'h9   : reg_data_out <= {31'd0, slv_reg9[0]};
-	        6'hC   : reg_data_out <= slv_reg12;
-	        6'hD   : reg_data_out <= {31'd0, slv_reg13[0]};
-	        6'h10  : reg_data_out <= {30'd0, slv_reg16[1:0]};
-	        6'h11  : reg_data_out <= {31'd0, slv_reg17[0]};
-	        6'h20  : reg_data_out <= {25'd0, irigb_seconds};
-	        6'h21  : reg_data_out <= {25'd0, irigb_minutes};
-	        6'h22  : reg_data_out <= {26'd0, irigb_hours};
-	        6'h23  : reg_data_out <= {22'd0, irigb_days};
-	        6'h24  : reg_data_out <= {24'd0, irigb_years};
-	        6'h25  : reg_data_out <= {14'd0, irigb_cntls};
-	        6'h26  : reg_data_out <= {15'd0, irigb_sbs};
-	        6'h30  : reg_data_out <= {31'd0, ddr3_initialized};
-	        6'h31  : reg_data_out <= {31'd0, ddr3_fifo_full};
-	        6'h32  : reg_data_out <= {31'd0, ddr3_rw_error};
+	        2'h0   : reg_data_out <= {24'd0, uart_rx_data};
+	        2'h1   : reg_data_out <= slv_reg1;
+	        2'h2   : reg_data_out <= 0;
+	        2'h3   : reg_data_out <= {24'd0, 1'b0, frame_err, 1'b0, slv_reg2[4], uart_tx_full, uart_tx_empty, uart_rx_full, uart_rx_valid};
 	        default : reg_data_out <= 0;
 	      endcase
 	end
@@ -560,38 +426,23 @@
 	end    
 
 	// Add user logic here
-	// always @ (posedge S_AXI_ACLK)
-	// 	if(S_AXI_ARESETN==1'b0) 
-	// 		init_txn_pulse <= 0;
-	// 	else 
-	// 		init_txn_pulse <= init_txn_flag;
-
-	// always @ (posedge S_AXI_ACLK) begin
-	// 	init_txn_pulse_r <= {init_txn_pulse_r[PULSE_WIDTH-2:0], slv_reg3[0]};
-	// end
-
 	always @ (posedge S_AXI_ACLK)
-		if(S_AXI_ARESETN==1'b0) 
-			adc_sync_pulse <= 0;
-		else
-			adc_sync_pulse <= adc_sync_flag;
+		if(!S_AXI_ARESETN)
+			uart_rx_ren_r <= 0;
+		else begin
+			if(slv_reg_rden&&(axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]==2'h0))
+				uart_rx_ren_r <= 1;
+			else 
+				uart_rx_ren_r <= 0; 
+		end
 
-	always @ (posedge S_AXI_ACLK) begin
-		adc_sync_pulse_r <= {adc_sync_pulse_r[PULSE_WIDTH-2:0], slv_reg4[0]};
-	end
+	assign uart_tx_data = slv_reg1[7:0];
+	assign uart_tx_wen = uart_tx_wen_r;
+	assign uart_rx_ren = uart_rx_ren_r;
 
-
-	assign init_txn = slv_reg3[0];
-	assign adc_sync = adc_sync_pulse;
-	assign daq_mode = slv_reg5[1:0];
-	assign daq_trig_src = slv_reg6[1:0];
-	assign daq_trig_len = slv_reg7;
-	assign daq_data_src = slv_reg8[0];
-	assign daq_soft_trig = slv_reg9[0];
-	assign pcie_recv_len = slv_reg12;
-	assign pcie_xfer_en = slv_reg13;
-	assign mac_speed = slv_reg16[1:0];
-	assign update_mac_speed = slv_reg17[0];
+	assign enable_intr = slv_reg2[4];
+	assign uart_rx_fiforst = slv_reg2[1];
+	assign uart_tx_fiforst = slv_reg2[0];
 
 	// User logic ends
 
