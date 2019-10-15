@@ -5,7 +5,7 @@ proc init_gui { IPINST } {
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
   ipgui::add_param $IPINST -name "DRP_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "DRP_COUNT" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "DRP_DATA_WIDTH" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "DRP_DATA_WIDTH" -parent ${Page_0} -widget comboBox
 
 
 }
