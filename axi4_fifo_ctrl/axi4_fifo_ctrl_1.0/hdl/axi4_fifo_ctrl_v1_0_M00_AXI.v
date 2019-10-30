@@ -5,6 +5,7 @@
 	(
 		// Users to add parameters here
 		parameter  C_M_AXI_TARGET_SLAVE_RANGE_ADDR	= 32'h40000000,
+		parameter  ALLOW_READ = "TRUE",
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -907,19 +908,30 @@
 			end
 		end
 
-	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
-			fifo_ptr <= 0;
-		else
-			case({axi4_wr_hit, axi4_rd_hit})
-				2'b00 : fifo_ptr <= fifo_ptr;
-				2'b01 : if(fifo_ptr==0)
-							fifo_ptr <= 0;
-						else
-							fifo_ptr <= fifo_ptr - 1;
-				2'b10 : fifo_ptr <= fifo_ptr + 1;
-				2'b11 : fifo_ptr <= fifo_ptr;
-			endcase
+	generate
+		if(ALLOW_READ == "TRUE") begin
+			always @ (posedge M_AXI_ACLK)
+				if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
+					fifo_ptr <= 0;
+				else
+					case({axi4_wr_hit, axi4_rd_hit})
+						2'b00 : fifo_ptr <= fifo_ptr;
+						2'b01 : if(fifo_ptr==0)
+									fifo_ptr <= 0;
+								else
+									fifo_ptr <= fifo_ptr - 1;
+						2'b10 : fifo_ptr <= fifo_ptr + 1;
+						2'b11 : fifo_ptr <= fifo_ptr;
+					endcase
+		end
+		else begin
+			always @ (posedge M_AXI_ACLK)
+				if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
+					fifo_ptr <= 0;
+				else
+					fifo_ptr <= 0;
+		end
+	endgenerate
 
 	always @ (posedge M_AXI_ACLK)
 		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin

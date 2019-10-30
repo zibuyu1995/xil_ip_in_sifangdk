@@ -27,6 +27,8 @@
 		output [7:0] tim_cycles_m,
 		output [7:0] delay_step_delta_t,
 
+		output       load_param,
+
 		// imaging algorithm control
 		output [15:0] frame_delay_a,
 		output [15:0] frame_delay_b,
@@ -78,6 +80,7 @@
 		.frame_gate_delay_b(frame_gate_delay_b),
 		.tim_cycles_m      (tim_cycles_m      ),
 		.delay_step_delta_t(delay_step_delta_t),
+		.load_param        (load_param        ),
 		.frame_delay_a     (frame_delay_a     ),
 		.frame_delay_b     (frame_delay_b     ),
 		.gate_width        (gate_width        ),

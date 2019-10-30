@@ -3,6 +3,7 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
+  ipgui::add_param $IPINST -name "ALLOW_READ" -parent ${Page_0} -widget comboBox
   set C_M00_AXI_TARGET_SLAVE_BASE_ADDR [ipgui::add_param $IPINST -name "C_M00_AXI_TARGET_SLAVE_BASE_ADDR" -parent ${Page_0}]
   set_property tooltip {Base address of targeted slave} ${C_M00_AXI_TARGET_SLAVE_BASE_ADDR}
   set C_M00_AXI_TARGET_SLAVE_RANGE_ADDR [ipgui::add_param $IPINST -name "C_M00_AXI_TARGET_SLAVE_RANGE_ADDR" -parent ${Page_0}]
@@ -27,6 +28,15 @@ proc init_gui { IPINST } {
   set_property tooltip {Width of User Response Bus} ${C_M00_AXI_BUSER_WIDTH}
 
 
+}
+
+proc update_PARAM_VALUE.ALLOW_READ { PARAM_VALUE.ALLOW_READ } {
+	# Procedure called to update ALLOW_READ when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.ALLOW_READ { PARAM_VALUE.ALLOW_READ } {
+	# Procedure called to validate ALLOW_READ
+	return true
 }
 
 proc update_PARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR { PARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR } {
@@ -182,5 +192,10 @@ proc update_MODELPARAM_VALUE.C_M00_AXI_BUSER_WIDTH { MODELPARAM_VALUE.C_M00_AXI_
 proc update_MODELPARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR { MODELPARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR PARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR}] ${MODELPARAM_VALUE.C_M00_AXI_TARGET_SLAVE_RANGE_ADDR}
+}
+
+proc update_MODELPARAM_VALUE.ALLOW_READ { MODELPARAM_VALUE.ALLOW_READ PARAM_VALUE.ALLOW_READ } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.ALLOW_READ}] ${MODELPARAM_VALUE.ALLOW_READ}
 }
 

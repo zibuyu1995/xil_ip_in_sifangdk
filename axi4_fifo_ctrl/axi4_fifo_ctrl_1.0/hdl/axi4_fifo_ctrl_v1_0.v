@@ -5,6 +5,7 @@
 	(
 		// Users to add parameters here
 		parameter  C_M00_AXI_TARGET_SLAVE_RANGE_ADDR	= 32'h40000000,
+		parameter  ALLOW_READ = "TRUE",
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -87,6 +88,7 @@
 	);
 // Instantiation of Axi Bus Interface M00_AXI
 	axi4_fifo_ctrl_v1_0_M00_AXI # ( 
+		.ALLOW_READ(ALLOW_READ),
 		.C_M_AXI_TARGET_SLAVE_RANGE_ADDR(C_M00_AXI_TARGET_SLAVE_RANGE_ADDR),
 		.C_M_TARGET_SLAVE_BASE_ADDR(C_M00_AXI_TARGET_SLAVE_BASE_ADDR),
 		.C_M_AXI_BURST_LEN(C_M00_AXI_BURST_LEN),
