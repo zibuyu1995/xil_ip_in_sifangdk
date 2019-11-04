@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 1 ps
 
-	module cmlk_system_ctrl_v1_0_S_AXI #
+	module cmlk_timing_ctrl_v1_0_S_AXI #
 	(
 		// Users to add parameters here
 
@@ -38,7 +38,7 @@
 		// misc
 		output [15:0] bg_frame_deci_n,
 
-
+		input        timing_gen_pll_locked,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -679,7 +679,7 @@
 	        5'h00   : reg_data_out <= VERSION;
 	        5'h01   : reg_data_out <= REVISION;
 	        5'h02   : reg_data_out <= slv_reg2;
-	        5'h03   : reg_data_out <= slv_reg3;
+	        5'h03   : reg_data_out <= {31'd0, timing_gen_pll_locked};
 	        5'h04   : reg_data_out <= slv_reg4;
 	        5'h05   : reg_data_out <= slv_reg5;
 	        5'h06   : reg_data_out <= slv_reg6;
