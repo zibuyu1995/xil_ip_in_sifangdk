@@ -2,7 +2,7 @@
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <spirit:vendor>xilinx.com</spirit:vendor>
   <spirit:library>user</spirit:library>
-  <spirit:name>cmlk_timing_ctrl</spirit:name>
+  <spirit:name>cmlk_timing_generator</spirit:name>
   <spirit:version>1.0</spirit:version>
   <spirit:busInterfaces>
     <spirit:busInterface>
@@ -514,14 +514,14 @@
     <spirit:fileSet>
       <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>xgui/cmlk_timing_ctrl_v1_0.tcl</spirit:name>
+        <spirit:name>xgui/cmlk_timing_generator_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_87b3a024</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>cmlk_timing_ctrl_v1_0</spirit:description>
+  <spirit:description>cmlk_timing_generator_v1_0</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>CLOCK_PERIOD</spirit:name>
@@ -555,13 +555,17 @@
       <xilinx:taxonomies>
         <xilinx:taxonomy>/UserIP</xilinx:taxonomy>
       </xilinx:taxonomies>
-      <xilinx:displayName>cmlk_timing_ctrl_v1_0</xilinx:displayName>
+      <xilinx:displayName>cmlk_timing_generator_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-11-04T07:42:22Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>1</xilinx:coreRevision>
+      <xilinx:upgrades>
+        <xilinx:canUpgradeFrom>xilinx.com:user:cmlk_timing_ctrl:1.0</xilinx:canUpgradeFrom>
+      </xilinx:upgrades>
+      <xilinx:coreCreationDateTime>2019-11-04T07:47:33Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="xilinx.com:user:cmlk_timing_ctrl:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_timing_generator/cmlk_timing_generator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="xilinx.com:user:cmlk_timing_generator:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_timing_generator/cmlk_timing_generator_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
