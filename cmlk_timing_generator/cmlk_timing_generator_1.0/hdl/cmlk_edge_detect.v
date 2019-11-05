@@ -4,13 +4,13 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : edge_detect.v
 // Create : 2019-10-22 16:41:27
-// Revised: 2019-10-22 16:44:34
+// Revised: 2019-11-05 09:42:21
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
 `timescale 1ns / 1ps
 
-module edge_detect (
+module cmlk_edge_detect (
 	input  rst_n,
 	input  clk  ,
 	input  sig  ,

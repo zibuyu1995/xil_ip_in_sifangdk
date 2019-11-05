@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : param_assert.v
 // Create : 2019-10-18 11:40:48
-// Revised: 2019-11-04 14:26:38
+// Revised: 2019-11-05 09:42:11
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ module param_assert(
 	assign frame_gate_delay_a_ovf = (frame_gate_delay_a>MAX_FRAME_GATE_DELAY_A);
 	assign frame_gate_delay_b_ovf = (frame_gate_delay_b>MAX_FRAME_GATE_DELAY_B);
 
-	edge_detect i_edge_detect (.rst_n(rst_n), .clk(clk), .sig(load_param), .rise(load_param_p), .fall());
+	cmlk_edge_detect edge_detect_i0 (.rst_n(rst_n), .clk(clk), .sig(load_param), .rise(load_param_p), .fall());
 
 
 	always @ (posedge clk)

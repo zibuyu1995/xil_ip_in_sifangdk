@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : oserdes_10to1_ddr.v
 // Create : 2019-10-15 16:31:51
-// Revised: 2019-10-15 16:49:14
+// Revised: 2019-11-05 10:25:33
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ module oserdes_10to1_ddr(
 		.SRVAL_TQ      (1'b0    ), // TQ output value when SR is used (1'b0,1'b1)
 		.TBYTE_CTL     ("FALSE" ), // Enable tristate byte operation (FALSE, TRUE)
 		.TBYTE_SRC     ("FALSE" ), // Tristate byte source (FALSE, TRUE)
-		.TRISTATE_WIDTH(4       )  // 3-state converter width (1,4)
+		.TRISTATE_WIDTH(1       )  // 3-state converter width (1,4)
 	) oserdese2_mst_i0 (
 		.OFB      (          ), // 1-bit output: Feedback path for data
 		.OQ       (oserdes_q ), // 1-bit output: Data path output
@@ -81,7 +81,7 @@ module oserdes_10to1_ddr(
 		.SRVAL_TQ      (1'b0   ), // TQ output value when SR is used (1'b0,1'b1)
 		.TBYTE_CTL     ("FALSE"), // Enable tristate byte operation (FALSE, TRUE)
 		.TBYTE_SRC     ("FALSE"), // Tristate byte source (FALSE, TRUE)
-		.TRISTATE_WIDTH(4      )  // 3-state converter width (1,4)
+		.TRISTATE_WIDTH(1      )  // 3-state converter width (1,4)
 	) oserdese2_slv_i0 (
 		.OFB      (          ), // 1-bit output: Feedback path for data
 		.OQ       (          ), // 1-bit output: Data path output
