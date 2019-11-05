@@ -3,7 +3,7 @@
   <spirit:vendor>xilinx.com</spirit:vendor>
   <spirit:library>user</spirit:library>
   <spirit:name>cmlk_timing_generator</spirit:name>
-  <spirit:version>1.0</spirit:version>
+  <spirit:version>1.1</spirit:version>
   <spirit:busInterfaces>
     <spirit:busInterface>
       <spirit:name>rst_n</spirit:name>
@@ -42,6 +42,28 @@
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_RESET">rst_n</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>clock_locked</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clock_locked</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
     </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:model>
@@ -58,7 +80,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4baa450b</spirit:value>
+            <spirit:value>0a8b11e4</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -74,7 +96,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4baa450b</spirit:value>
+            <spirit:value>0a8b11e4</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -394,7 +416,7 @@
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="integer">
         <spirit:name>CLOCK_PERIOD</spirit:name>
         <spirit:displayName>Clock Period</spirit:displayName>
-        <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.CLOCK_PERIOD">10.000</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.CLOCK_PERIOD">10</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>CLOCK_FBMULT</spirit:name>
@@ -459,9 +481,13 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/shift_reg.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/cmlk_timing_ctrl.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_d33e0da2</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_fa37cfba</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -507,6 +533,10 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/shift_reg.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/cmlk_timing_ctrl.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
@@ -514,19 +544,19 @@
     <spirit:fileSet>
       <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>xgui/cmlk_timing_generator_v1_0.tcl</spirit:name>
+        <spirit:name>xgui/cmlk_timing_generator_v1_1.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_87b3a024</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>cmlk_timing_generator_v1_0</spirit:description>
+  <spirit:description>cmlk_timing_generator_v1_1</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>CLOCK_PERIOD</spirit:name>
       <spirit:displayName>Clock Period</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLOCK_PERIOD">10.000</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.CLOCK_PERIOD">10</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>CLOCK_FBMULT</spirit:name>
@@ -555,26 +585,28 @@
       <xilinx:taxonomies>
         <xilinx:taxonomy>/UserIP</xilinx:taxonomy>
       </xilinx:taxonomies>
-      <xilinx:displayName>cmlk_timing_generator_v1_0</xilinx:displayName>
+      <xilinx:displayName>cmlk_timing_generator_v1_1</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:coreRevision>1</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>xilinx.com:user:cmlk_timing_ctrl:1.0</xilinx:canUpgradeFrom>
+        <xilinx:canUpgradeFrom>xilinx.com:user:cmlk_timing_generator:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2019-11-04T07:47:33Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2019-11-04T09:50:50Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="xilinx.com:user:cmlk_timing_ctrl:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_timing_generator/cmlk_timing_generator_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="xilinx.com:user:cmlk_timing_generator:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_timing_generator/cmlk_timing_generator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="xilinx.com:user:cmlk_timing_generator:1.1_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_timing_generator/cmlk_timing_generator_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2017.4</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="1d91acf1"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="a968ac94"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="fa013eb5"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="fcc254f5"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="86154b26"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="e7a0fc79"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="1ed3be33"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b5d9b4ca"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="0661c49d"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

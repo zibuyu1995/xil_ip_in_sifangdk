@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_timing_ctrl.v
 // Create : 2019-10-15 10:58:28
-// Revised: 2019-11-04 15:27:54
+// Revised: 2019-11-04 17:47:42
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -157,9 +157,9 @@ module cmlk_timing_ctrl#(
 		.gate_data_out      (gate_data_out)
 	);
 
-	oserdes_10to1_ddr oserdes_10to1_ddr_i0(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in({10{cmos_trig_pulse_w}}), .pin_q(cmos_trig_pulse));
-	oserdes_10to1_ddr oserdes_10to1_ddr_i1(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in(laser_data_out), .pin_q(laser_pulse));
-	oserdes_10to1_ddr oserdes_10to1_ddr_i2(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in(gate_data_out), .pin_q(gate_pulse));
+	shift_reg #(.PLACE_IN_IOB("true"), .DELAY_CYCLE (56)) shift_reg_i0(.clk(clk_100m), .rst_n(pll_locked), .din(cmos_trig_pulse_w), .dout(cmos_trig_pulse));
+	oserdes_10to1_ddr oserdes_10to1_ddr_i0(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in(laser_data_out), .pin_q(laser_pulse));
+	oserdes_10to1_ddr oserdes_10to1_ddr_i1(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in(gate_data_out), .pin_q(gate_pulse));
 	assign frame_type = frame_type_w;
 
 endmodule
