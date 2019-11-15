@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : oserdes_10to1_ddr.v
 // Create : 2019-10-15 16:31:51
-// Revised: 2019-11-05 10:25:33
+// Revised: 2019-11-05 17:26:35
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ module oserdes_10to1_ddr(
 
 	OSERDESE2 #(
 		.DATA_RATE_OQ  ("DDR"   ), // DDR, SDR
-		.DATA_RATE_TQ  ("DDR"   ), // DDR, BUF, SDR
+		.DATA_RATE_TQ  ("SDR"   ), // DDR, BUF, SDR
 		.DATA_WIDTH    (10      ), // Parallel data width (2-8,10,14)
 		.INIT_OQ       (1'b0    ), // Initial value of OQ output (1'b0,1'b1)
 		.INIT_TQ       (1'b0    ), // Initial value of TQ output (1'b0,1'b1)
@@ -72,7 +72,7 @@ module oserdes_10to1_ddr(
 
 	OSERDESE2 #(
 		.DATA_RATE_OQ  ("DDR"  ), // DDR, SDR
-		.DATA_RATE_TQ  ("DDR"  ), // DDR, BUF, SDR
+		.DATA_RATE_TQ  ("SDR"  ), // DDR, BUF, SDR
 		.DATA_WIDTH    (10     ), // Parallel data width (2-8,10,14)
 		.INIT_OQ       (1'b0   ), // Initial value of OQ output (1'b0,1'b1)
 		.INIT_TQ       (1'b0   ), // Initial value of TQ output (1'b0,1'b1)

@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : param_assert.v
 // Create : 2019-10-18 11:40:48
-// Revised: 2019-11-05 09:42:11
+// Revised: 2019-11-05 17:18:06
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -42,6 +42,7 @@ module param_assert(
 
 	localparam MAX_CMOS_FREQ = 10_000 - 1;
 	localparam MAX_CMOS_WIDTH = 10_000 - 1;
+	localparam MIN_LASER_FREQ = 10 - 1;
 	localparam MAX_LASER_FREQ = 1_000_000_000 - 1;
 	localparam MAX_LASER_WIDTH = 1_000_000_000 - 1;
 	localparam MAX_FRAME_GATE_WIDTH_A = 1_000_000_000 - 1;
@@ -66,6 +67,7 @@ module param_assert(
 
 	wire cmos_freq_ovf;
 	wire cmos_width_ovf;
+	wire laser_freq_udf;
 	wire laser_freq_ovf;
 	wire laser_width_ovf;
 	wire frame_gate_width_a_ovf;
@@ -76,6 +78,7 @@ module param_assert(
 
 	assign cmos_freq_ovf = (cmos_freq>MAX_CMOS_FREQ);
 	assign cmos_width_ovf = (cmos_width>MAX_CMOS_WIDTH);
+	assign laser_freq_udf = (laser_freq<=MIN_LASER_FREQ);
 	assign laser_freq_ovf = (laser_freq>MAX_LASER_FREQ);
 	assign laser_width_ovf = (laser_width>MAX_LASER_WIDTH);
 	assign frame_gate_width_a_ovf = (frame_gate_width_a>MAX_FRAME_GATE_WIDTH_A);
