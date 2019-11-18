@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER cmlk_imaging_ctrl
+	OPTION supported_peripherals = (cmlk_imaging_ctrl);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = cmlk_imaging_ctrl;
+END DRIVER

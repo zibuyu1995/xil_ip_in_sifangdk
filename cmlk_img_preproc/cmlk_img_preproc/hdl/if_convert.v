@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : if_convert.v
 // Create : 2019-11-06 17:27:58
-// Revised: 2019-11-07 15:34:50
+// Revised: 2019-11-18 15:45:51
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ module if_convert (
 			pix_cnt <= pix_cnt;
 
 	assign unexpected_data_hit = (pix_cnt>=PIX_NUM-1)&&(tvalid_qq==1'b1);
-	assign unexpected_tlast_hit = (pix_cnt==PIX_NUM-2)&&(tvalid_qq==1'b1)&&(tlast_qq==1'b0);
+	assign unexpected_tlast_hit = (pix_cnt[7:0]==8'b1111_1110)&&(tvalid_qq==1'b1)&&(tlast_qq==1'b0);
 
 	// pipeline stage 3
 	always @ (posedge clk)

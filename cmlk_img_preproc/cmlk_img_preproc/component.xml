@@ -144,7 +144,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>22ac1de4</spirit:value>
+            <spirit:value>62bdabed</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -160,7 +160,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>22ac1de4</spirit:value>
+            <spirit:value>62bdabed</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -587,8 +587,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>cmlk_img_preproc_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-11-18T02:55:53Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>3</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2019-11-18T07:49:08Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="xilinx.com:user:cmlk_img_preproc:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_img_preproc/cmlk_img_preproc</xilinx:tag>
@@ -597,7 +597,7 @@
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2017.4</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="e58ff642"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c77f830f"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="72bf2c6e"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="b7951dbb"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="bde3ea59"/>
     </xilinx:packagingInfo>
