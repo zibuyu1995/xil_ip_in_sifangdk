@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_img_preproc.v
 // Create : 2019-11-06 15:54:49
-// Revised: 2019-11-18 09:54:31
+// Revised: 2019-11-18 16:54:16
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -26,6 +26,7 @@ module cmlk_img_preproc(
 		input fifo_full,
 		// misc
 		input diff_en,
+		input wr2ddr_en,
 		output fifo_overflow,
 		output unexpected_data,
 		output unexpected_tlast,
@@ -51,9 +52,13 @@ module cmlk_img_preproc(
 	wire [17:0] bram_raddr;
 	wire [31:0] bram_rdata;
 
+	wire int_resetn;
+
+	assign int_resetn = aresetn & (~init_txn);
+
 	if_convert if_convert_i0 (
 		.clk               (aclk              ),
-		.rst_n             (aresetn           ),
+		.rst_n             (int_resetn        ),
 		.s_axis_cmlk_tdata (s_axis_cmlk_tdata ),
 		.s_axis_cmlk_tlast (s_axis_cmlk_tlast ),
 		.s_axis_cmlk_tready(s_axis_cmlk_tready),
@@ -70,7 +75,7 @@ module cmlk_img_preproc(
 
 	img_deci img_deci_i0 (
 		.clk        (aclk            ),
-		.rst_n      (aresetn         ),
+		.rst_n      (int_resetn      ),
 		.din        (if_dout         ),
 		.din_valid  (if_dout_vld     ),
 		.dout       (binning_dout    ),
@@ -80,7 +85,7 @@ module cmlk_img_preproc(
 
 	img_diff img_diff_i0 (
 		.clk           (aclk            ),
-		.rst_n         (aresetn         ),
+		.rst_n         (int_resetn      ),
 		.diff_en       (diff_en         ),
 		.data_in       (binning_dout    ),
 		.data_in_valid (binning_dout_vld),
@@ -102,24 +107,25 @@ module cmlk_img_preproc(
 		.clka  (aclk       ),
 		.wea   (bram_wvalid),
 		.enb   (1'b1       ),
-		.rstb  (~aresetn   ),
+		.rstb  (~int_resetn),
 		.regceb(1'b1       ),
 		.doutb (bram_rdata )
 	);
 
 	img_packet img_packet_i0 (
-		.clk           (aclk),
-		.rst_n         (aresetn),
-		.data_in       (diff_out),
-		.data_in_valid (diff_out_vld),
-		.fifo_wrdata   (fifo_wrdata),
-		.fifo_wren     (fifo_wren),
-		.fifo_full     (fifo_full),
-		.fifo_overflow (fifo_overflow),
-		.frame_start   (frame_start),
-		.frame_type_i  (frame_type),
-		.frame_store   (frame_store),
-		.frame_type_o  (frame_type_o)
+		.clk          (aclk         ),
+		.rst_n        (int_resetn   ),
+		.data_in      (diff_out     ),
+		.data_in_valid(diff_out_vld ),
+		.fifo_wrdata  (fifo_wrdata  ),
+		.fifo_wren    (fifo_wren    ),
+		.fifo_full    (fifo_full    ),
+		.fifo_overflow(fifo_overflow),
+		.frame_start  (frame_start  ),
+		.frame_type_i (frame_type   ),
+		.frame_store  (frame_store  ),
+		.frame_type_o (frame_type_o ),
+		.wr2ddr_en    (wr2ddr_en)
 	);
 
 endmodule

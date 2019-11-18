@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : img_packet.v
 // Create : 2019-11-14 14:28:30
-// Revised: 2019-11-15 17:37:50
+// Revised: 2019-11-18 16:49:13
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -19,6 +19,7 @@ module img_packet (
 	output fifo_wren,
 	input fifo_full,
 	// misc
+	input wr2ddr_en,
 	output fifo_overflow,
 	input frame_start,
 	input [1:0] frame_type_i,
@@ -58,6 +59,10 @@ module img_packet (
 
 	reg fifo_overflow_r;
 
+	reg wr2ddr_en_q;
+	reg wr2ddr_en_r;
+	wire wr2ddr_en_hit;
+
 	reg [17:0] int_cnt;
 	reg [2:0] mst_state;
 
@@ -83,12 +88,14 @@ module img_packet (
 			data_in_valid_q <= 0;
 			frame_start_q <= 0;
 			frame_type_q <= 0;
+			wr2ddr_en_q <= 0;
 		end
 		else begin
 			data_in_q <= data_in;
 			data_in_valid_q <= data_in_valid;
 			frame_start_q <= frame_start;
 			frame_type_q <= frame_type_i;
+			wr2ddr_en_q <= wr2ddr_en;
 		end
 
 	// detect frame start & save frame type
@@ -138,7 +145,7 @@ module img_packet (
 			case (mst_state)
 				WR_DATA : begin
 					fifo_wrdata_r <= data_in_q;
-					fifo_wren_r <= data_in_valid_q;
+					fifo_wren_r <= ({data_in_valid_q, wr2ddr_en_r}==2'b11);
 				end
 
 				PARITY : begin
@@ -146,7 +153,7 @@ module img_packet (
 						fifo_wrdata_r <= parity_w;
 					else
 						fifo_wrdata_r <= 0;
-					fifo_wren_r <= (fifo_full==1'b0);
+					fifo_wren_r <= ({fifo_full, wr2ddr_en_r}==2'b01);
 				end
 
 				FRAME_INFO : begin
@@ -158,12 +165,12 @@ module img_packet (
 						fifo_wrdata_r <= frame_info_dw2;
 					else
 						fifo_wrdata_r <= fifo_wrdata_r;
-					fifo_wren_r <= (fifo_full==1'b0);
+					fifo_wren_r <= ({fifo_full, wr2ddr_en_r}==2'b01);
 				end
 
 				FLUSH : begin
 					fifo_wrdata_r <= 0;
-					fifo_wren_r <= (fifo_full==1'b0);
+					fifo_wren_r <= ({fifo_full, wr2ddr_en_r}==2'b01);
 				end
 
 				default : begin
@@ -232,6 +239,19 @@ module img_packet (
 					mst_state <= IDLE;
 			endcase
 	end
+
+	// write to ddr enable control
+	assign wr2ddr_en_hit = ({frame_start_rise, frame_type_q, wr2ddr_en_q}==4'b1001);
+
+	always @ (posedge clk)
+		if(!rst_n)
+			wr2ddr_en_r <= 0;
+		else if(wr2ddr_en_q==1'b0)
+			wr2ddr_en_r <= 0;
+		else if(wr2ddr_en_hit)
+			wr2ddr_en_r <= 1;
+		else
+			wr2ddr_en_r <= wr2ddr_en_r;
 
 	// output logic
 	assign fifo_wrdata = fifo_wrdata_r;
