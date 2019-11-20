@@ -17,6 +17,7 @@
 		// Users to add ports here
 		output wire init_txn,
 		output wire diff_en,
+		input wire ext_trig_overflow,
 		input wire fifo_overflow,
 		input wire unexpected_data,
 		input wire unexpected_tlast,
@@ -511,7 +512,7 @@
 	        4'h2   : reg_data_out <= slv_reg2;
 	        4'h3   : reg_data_out <= slv_reg3;
 	        4'h4   : reg_data_out <= slv_reg4;
-	        4'h5   : reg_data_out <= {29'd0, unexpected_tlast, unexpected_data, fifo_overflow};
+	        4'h5   : reg_data_out <= {28'd0, ext_trig_overflow, unexpected_tlast, unexpected_data, fifo_overflow};
 	        4'h6   : reg_data_out <= slv_reg6;
 	        4'h7   : reg_data_out <= slv_reg7;
 	        4'h8   : reg_data_out <= slv_reg8;

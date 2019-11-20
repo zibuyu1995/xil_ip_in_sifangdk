@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_timing_ctrl.v
 // Create : 2019-10-15 10:58:28
-// Revised: 2019-11-05 17:19:45
+// Revised: 2019-11-20 16:11:09
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -34,6 +34,7 @@ module cmlk_timing_ctrl#(
 		input       load_param,
 
 		// output indcator
+		output frame_ext_trig,
 		output [1:0] frame_type, // 01--- frame A, 10--- frame B, 00--- background frame
 		output clock_locked,
 
@@ -161,5 +162,6 @@ module cmlk_timing_ctrl#(
 	oserdes_10to1_ddr oserdes_10to1_ddr_i0(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in(laser_data_out), .pin_q(laser_pulse));
 	oserdes_10to1_ddr oserdes_10to1_ddr_i1(.clk(clk_500m), .clk_div(clk_100m), .rst(~pll_locked), .data_in(gate_data_out), .pin_q(gate_pulse));
 	assign frame_type = frame_type_w;
+	assign frame_ext_trig = cmos_trig_pulse_w;
 
 endmodule

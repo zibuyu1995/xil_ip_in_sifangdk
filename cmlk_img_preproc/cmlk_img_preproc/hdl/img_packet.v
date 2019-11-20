@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : img_packet.v
 // Create : 2019-11-14 14:28:30
-// Revised: 2019-11-18 16:49:13
+// Revised: 2019-11-20 15:42:29
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ module img_packet (
 	reg [1:0] frame_type_q;
 
 	reg frame_start_qq;
-	reg frame_type_qq;
+	reg [1:0] frame_type_qq;
 	wire frame_start_rise;
 
 	wire [31:0] parity_w;

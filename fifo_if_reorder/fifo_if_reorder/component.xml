@@ -208,7 +208,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>75101d67</spirit:value>
+            <spirit:value>624fc8ca</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -224,7 +224,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>75101d67</spirit:value>
+            <spirit:value>624fc8ca</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -238,7 +238,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dcaddd0c</spirit:value>
+            <spirit:value>a52089c3</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -519,14 +519,9 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.IF_WIDTH">256</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>WIDTH_A</spirit:name>
-        <spirit:displayName>Width A</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.WIDTH_A">32</spirit:value>
-      </spirit:modelParameter>
-      <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>WIDTH_B</spirit:name>
-        <spirit:displayName>Width B</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.WIDTH_B">256</spirit:value>
+        <spirit:name>DIVISOR</spirit:name>
+        <spirit:displayName>Divisor</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DIVISOR">8</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -536,6 +531,14 @@
       <spirit:enumeration>WRITE</spirit:enumeration>
       <spirit:enumeration>READ</spirit:enumeration>
     </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_list_f4d5364e</spirit:name>
+      <spirit:enumeration>1</spirit:enumeration>
+      <spirit:enumeration>2</spirit:enumeration>
+      <spirit:enumeration>4</spirit:enumeration>
+      <spirit:enumeration>8</spirit:enumeration>
+      <spirit:enumeration>16</spirit:enumeration>
+    </spirit:choice>
   </spirit:choices>
   <spirit:fileSets>
     <spirit:fileSet>
@@ -543,7 +546,7 @@
       <spirit:file>
         <spirit:name>hdl/fifo_if_reorder.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_75101d67</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_624fc8ca</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -558,7 +561,7 @@
       <spirit:file>
         <spirit:name>xgui/fifo_if_reorder_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_dcaddd0c</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_a52089c3</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -581,41 +584,15 @@
       <spirit:name>IF_WIDTH</spirit:name>
       <spirit:displayName>If Width</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.IF_WIDTH">256</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.IF_WIDTH">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>WIDTH_A</spirit:name>
-      <spirit:displayName>Width A</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.WIDTH_A">32</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PARAM_ENABLEMENT.WIDTH_A">true</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>WIDTH_B</spirit:name>
-      <spirit:displayName>Width B</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.WIDTH_B">256</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PARAM_ENABLEMENT.WIDTH_B">true</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">fifo_if_reorder_v1_0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>DIVISOR</spirit:name>
+      <spirit:displayName>Divisor</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DIVISOR" spirit:choiceRef="choice_list_f4d5364e">8</spirit:value>
     </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
@@ -647,8 +624,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>fifo_if_reorder_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>3</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-11-20T07:36:32Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>4</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2019-11-20T09:00:32Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="xilinx.com:user:fifo_if_reorder:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/fifo_if_reorder/fifo_if_reorder</xilinx:tag>
@@ -657,10 +634,10 @@
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2017.4</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="d70f3ce9"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="d52f5edc"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="13986f03"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="ca40e510"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="39052b67"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="85fef744"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="04fc621c"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="1b7cca2e"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

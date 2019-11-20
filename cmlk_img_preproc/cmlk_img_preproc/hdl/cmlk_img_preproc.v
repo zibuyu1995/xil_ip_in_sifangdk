@@ -4,13 +4,13 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_img_preproc.v
 // Create : 2019-11-06 15:54:49
-// Revised: 2019-11-18 16:54:16
+// Revised: 2019-11-20 16:01:42
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
 `timescale 1ns / 1ps
 
-module cmlk_img_preproc(
+module cmlk_img_preproc#(parameter ENABLE_EXT_TRIG_CNT = "TRUE")(
 		input aclk,
 		input aresetn,
 		input init_txn,		// TODO
@@ -25,6 +25,8 @@ module cmlk_img_preproc(
 		output fifo_wren,
 		input fifo_full,
 		// misc
+		input ext_trig,
+		output ext_trig_overflow,
 		input diff_en,
 		input wr2ddr_en,
 		output fifo_overflow,
@@ -127,5 +129,18 @@ module cmlk_img_preproc(
 		.frame_type_o (frame_type_o ),
 		.wr2ddr_en    (wr2ddr_en)
 	);
+
+	generate
+		if(ENABLE_EXT_TRIG_CNT == "TRUE") begin
+			ext_trig_cnt ext_trig_cnt_i0 (
+				.clk              (aclk             ),
+				.rst_n            (int_resetn       ),
+				.en_cnt           (wr2ddr_en        ),
+				.ext_trig         (ext_trig         ),
+				.frame_start      (frame_start      ),
+				.ext_trig_overflow(ext_trig_overflow)
+			);
+		end
+	endgenerate
 
 endmodule

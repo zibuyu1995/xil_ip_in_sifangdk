@@ -4,15 +4,14 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : fifo_if_reorder.v
 // Create : 2019-11-20 10:26:45
-// Revised: 2019-11-20 15:33:33
+// Revised: 2019-11-20 16:58:58
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
 module fifo_if_reorder #(
 		parameter IF_TYPE = "WRITE",
 		parameter IF_WIDTH = 256,
-		parameter WIDTH_A = 32,
-		parameter WIDTH_B = 256
+		parameter DIVISOR = 8
 	)(
 		// fifo write if a slv
 		input [IF_WIDTH-1:0] fifo_a_wrdata,
@@ -36,9 +35,8 @@ module fifo_if_reorder #(
 		input fifo_b_almostempty
 	);
 
-	localparam A_IS_MAXIMUM = (WIDTH_A>WIDTH_B)?"TRUE":"FALSE";
-	localparam BASE_WIDTH_COEF = (A_IS_MAXIMUM=="TRUE")?(WIDTH_A/WIDTH_B):(WIDTH_B/WIDTH_A);
-	localparam BASE_WIDTH = (A_IS_MAXIMUM=="TRUE")?WIDTH_B:WIDTH_A;
+	localparam BASE_WIDTH_COEF = IF_WIDTH;
+	localparam BASE_WIDTH = IF_WIDTH/DIVISOR;
 
 	genvar i;
 
@@ -55,9 +53,9 @@ module fifo_if_reorder #(
 
 	generate
 		if(IF_TYPE=="READ") begin
-			assign fifo_a_rden = fifo_a_rden;
-			assign fifo_a_empty = fifo_a_empty;
-			assign fifo_a_almostfull = fifo_b_almostfull;
+			assign fifo_b_rden = fifo_a_rden;
+			assign fifo_a_empty = fifo_b_empty;
+			assign fifo_a_almostempty = fifo_b_almostempty;
 			for(i=0; i<BASE_WIDTH_COEF; i=i+1) begin
 				assign fifo_a_rddata[BASE_WIDTH*i +: BASE_WIDTH] = fifo_b_rddata[BASE_WIDTH*(BASE_WIDTH_COEF-i-1) +: BASE_WIDTH];
 			end
