@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : fifo_if_reorder.v
 // Create : 2019-11-20 10:26:45
-// Revised: 2019-11-20 16:58:58
+// Revised: 2019-11-20 17:12:32
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ module fifo_if_reorder #(
 		input fifo_b_almostempty
 	);
 
-	localparam BASE_WIDTH_COEF = IF_WIDTH;
+	localparam BASE_WIDTH_COEF = DIVISOR;
 	localparam BASE_WIDTH = IF_WIDTH/DIVISOR;
 
 	genvar i;
