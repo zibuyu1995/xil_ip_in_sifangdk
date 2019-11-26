@@ -42,6 +42,12 @@
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_RESET">rst_n</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
     </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:model>
@@ -58,7 +64,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dfc4ddd1</spirit:value>
+            <spirit:value>46b1a622</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -74,7 +80,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dfc4ddd1</spirit:value>
+            <spirit:value>46b1a622</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -174,7 +180,7 @@
       <spirit:file>
         <spirit:name>hdl/edge_detect.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_dfc4ddd1</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_46b1a622</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -230,8 +236,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>edge_detect_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-10-21T09:04:26Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>3</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2019-11-25T02:58:18Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="xilinx.com:user:edge_detect:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/edge_detect/edge_detect_1.0</xilinx:tag>
@@ -239,8 +245,8 @@
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2017.4</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="1d91acf1"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="5e4f9fcf"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="d6e11ac4"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="cceb9479"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="35ed627f"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="189129a4"/>
     </xilinx:packagingInfo>
