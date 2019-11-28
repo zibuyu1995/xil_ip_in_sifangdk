@@ -29,6 +29,7 @@
 
 		output       load_param,
 
+		output       init_ctrl,
 		// imaging algorithm control
 		output [15:0] frame_delay_a,
 		output [15:0] frame_delay_b,
@@ -66,11 +67,13 @@
 		output wire  s_axi_rvalid,
 		input wire  s_axi_rready
 	);
-// Instantiation of Axi Bus Interface S_AXI
+
+	// Instantiation of Axi Bus Interface S_AXI
 	cmlk_timing_ctrl_v1_0_S_AXI #(
 		.C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
 		.C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
 	) cmlk_timing_ctrl_v1_0_S_AXI_inst (
+		.init_ctrl            (init_ctrl            ),
 		.cmos_freq            (cmos_freq            ),
 		.cmos_width           (cmos_width           ),
 		.laser_freq           (laser_freq           ),

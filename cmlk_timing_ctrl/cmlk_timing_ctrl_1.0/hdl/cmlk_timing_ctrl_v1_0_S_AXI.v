@@ -29,6 +29,7 @@
 
 		output       load_param,
 
+		output       init_ctrl,
 		// imaging algorithm control
 		output [15:0] frame_delay_a,
 		output [15:0] frame_delay_b,
@@ -571,6 +572,10 @@
 	                    end
 	        endcase
 	      end
+	      else
+			begin
+				slv_reg2 <= 0;
+			end
 	  end
 	end    
 
@@ -732,6 +737,8 @@
 	end    
 
 	// Add user logic here
+	assign init_ctrl = slv_reg2[0];
+
 	assign cmos_freq = slv_reg8[15:0]; // 20h
 	assign cmos_width = slv_reg9[15:0];
 	assign laser_freq = slv_reg10;

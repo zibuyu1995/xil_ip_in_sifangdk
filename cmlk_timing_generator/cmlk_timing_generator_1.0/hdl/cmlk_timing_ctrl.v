@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_timing_ctrl.v
 // Create : 2019-10-15 10:58:28
-// Revised: 2019-11-20 16:11:09
+// Revised: 2019-11-28 10:22:37
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -18,6 +18,7 @@ module cmlk_timing_ctrl#(
 		// clock & reset
 		input clk,
 		input rst_n,
+		input init_ctrl,
 		// input parameter
 		input [15:0] cmos_freq,
 		input [15:0] cmos_width,
@@ -78,7 +79,7 @@ module cmlk_timing_ctrl#(
 		.CLOCK_LINEDIV(CLOCK_LINEDIV)
 	) timctrl_clock_gen_i0 (
 		.clk      (clk),
-		.rst      (~rst_n),
+		.rst      ((~rst_n)||(init_ctrl)),
 		.clk_100m (clk_100m),
 		.clk_500m (clk_500m),
 		.locked   (pll_locked)
