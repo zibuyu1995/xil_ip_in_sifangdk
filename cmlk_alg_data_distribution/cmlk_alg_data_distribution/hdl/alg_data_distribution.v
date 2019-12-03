@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : alg_data_distribution.v
 // Create : 2019-10-22 16:28:45
-// Revised: 2019-11-26 17:00:23
+// Revised: 2019-11-28 17:07:33
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -81,6 +81,8 @@ module alg_data_distribution#(
 
 	reg lost_read_r;
 
+	reg init_flag;
+
 	alg_edge_detect alg_edge_detect_i0 (.rst_n(rst_n), .clk(clk), .sig(load_addr), .rise(load_addr_p), .fall());
 	alg_edge_detect alg_edge_detect_i1 (.rst_n(rst_n), .clk(clk), .sig(frame_store), .rise(frame_store_p), .fall());
 
@@ -97,6 +99,14 @@ module alg_data_distribution#(
 	assign read_byte_num = LINE_STRIDE;
 
 	always @ (posedge clk)
+		if(!rst_n||load_addr_p)
+			init_flag <= 0;
+		else if(frame_store_p)
+			init_flag <= 1;
+		else
+			init_flag <= init_flag;
+
+	always @ (posedge clk)
 		if(!rst_n)
 			frame_type_r <= 0;
 		else if(frame_store_p)
@@ -106,7 +116,7 @@ module alg_data_distribution#(
 
 
 	always @ (posedge clk)
-		if(!rst_n) begin
+		if((!rst_n)||(~init_flag)) begin
 			frame_inc <= 0;
 			frame_clr <= 0;
 		end
@@ -135,7 +145,7 @@ module alg_data_distribution#(
 			frame_clr_q <= frame_clr_q;
 
 	always @ (posedge clk)
-		if(!rst_n|frame_clr)
+		if(!rst_n||frame_clr||load_addr_p)
 			frame_cnt <= 0;
 		else if(frame_inc)
 			frame_cnt <= frame_cnt + 1'b1;
@@ -212,8 +222,8 @@ module alg_data_distribution#(
 					offset_addr_r1 <= offset_addr_r1_line_inc;
 				end
 				RD_FRAME_DONE : begin
-					offset_addr_r0 <= (frame_clr_q==1'b1)?offset_addr_r0_clr_inc:offset_addr_r1_line_inc;
-					offset_addr_r1 <= (frame_clr_q==1'b1)?offset_addr_r1_clr_inc:offset_addr_r0_line_inc;
+					offset_addr_r0 <= (frame_clr_q==1'b1)?offset_addr_r0_clr_inc:offset_addr_r0_line_inc;
+					offset_addr_r1 <= (frame_clr_q==1'b1)?offset_addr_r1_clr_inc:offset_addr_r1_line_inc;
 				end
 				default : begin
 					offset_addr_r0 <= offset_addr_r0;
@@ -270,8 +280,8 @@ module alg_data_distribution#(
 	assign frame_type_o = frame_type_r;
 	assign lost_read = lost_read_r;
 	assign m0_axis_mm2s_cmd_tvalid = (mst_state==RD_LINE_A);
-	assign m0_axis_mm2s_cmd_tdata = {8'd0, base_addr[31:CACHE_WIDTH], offset_addr_r0[OFFSET_WIDTH:0], 1'b0, 1'b1, 6'd0, 1'b1, read_byte_num};
+	assign m0_axis_mm2s_cmd_tdata = {8'd0, base_addr_r[31:CACHE_WIDTH], offset_addr_r0[OFFSET_WIDTH:0], 1'b0, 1'b1, 6'd0, 1'b1, read_byte_num};
 	assign m1_axis_mm2s_cmd_tvalid = (mst_state==RD_LINE_B);
-	assign m1_axis_mm2s_cmd_tdata = {8'd0, base_addr[31:CACHE_WIDTH], offset_addr_r1[OFFSET_WIDTH:0], 1'b0, 1'b1, 6'd0, 1'b1, read_byte_num};
+	assign m1_axis_mm2s_cmd_tdata = {8'd0, base_addr_r[31:CACHE_WIDTH], offset_addr_r1[OFFSET_WIDTH:0], 1'b0, 1'b1, 6'd0, 1'b1, read_byte_num};
 
 endmodule
