@@ -262,6 +262,8 @@
 	reg fifo_wren_r;
 	reg [C_M_AXI_DATA_WIDTH-1:0] fifo_wrdata_r;
 
+	(* max_fanout=2500 *)reg rst = 1'b1;
+
 	initial begin
 		for(i=0; i<C_M_AXI_BURST_LEN; i=i+1) begin
 			rd_cache_a[i] = {C_M_AXI_DATA_WIDTH{1'b0}};
@@ -347,6 +349,9 @@
 	      end                                                                      
 	  end     
 
+	always @ (posedge M_AXI_ACLK) begin
+		rst <= (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 );
+	end
 
 	//--------------------
 	//Write Address Channel
@@ -364,7 +369,7 @@
 	  always @(posedge M_AXI_ACLK)                                   
 	  begin                                                                
 	                                                                       
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                                           
+	    if (rst)                                           
 	      begin                                                            
 	        axi_awvalid <= 1'b0;                                           
 	      end                                                              
@@ -387,7 +392,7 @@
 	// Next address after AWREADY indicates previous address acceptance    
 	  always @(posedge M_AXI_ACLK)                                         
 	  begin                                                                
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                            
+	    if (rst)                                            
 	      begin                                                            
 	        axi_awaddr <= 'b0;                                             
 	      end                                                              
@@ -432,7 +437,7 @@
 	// WVALID logic, similar to the axi_awvalid always block above                      
 	  always @(posedge M_AXI_ACLK)                                                      
 	  begin                                                                             
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                                                        
+	    if (rst)                                                        
 	      begin                                                                         
 	        axi_wvalid <= 1'b0;                                                         
 	      end                                                                           
@@ -455,7 +460,7 @@
 	// WVALID logic, similar to the axi_awvalid always block above                      
 	  always @(posedge M_AXI_ACLK)                                                      
 	  begin                                                                             
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                                                        
+	    if (rst)                                                        
 	      begin                                                                         
 	        axi_wlast <= 1'b0;                                                          
 	      end                                                                           
@@ -482,7 +487,7 @@
 	 count to reduce decode logic */                                                    
 	  always @(posedge M_AXI_ACLK)                                                      
 	  begin                                                                             
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 || start_single_burst_write == 1'b1)    
+	    if (rst || start_single_burst_write == 1'b1)    
 	      begin                                                                         
 	        write_index <= 0;                                                           
 	      end                                                                           
@@ -499,7 +504,7 @@
 	 Data pattern is only a simple incrementing count from 0 for each burst  */         
 	  always @(posedge M_AXI_ACLK)                                                      
 	  begin                                                                             
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1) begin                                                       
+	    if (rst) begin                                                       
 	      axi_wdata <= 'b0;
 	      write_cache_addr <= 0;
 	    end                         
@@ -542,7 +547,7 @@
 
 	  always @(posedge M_AXI_ACLK)                                     
 	  begin                                                                 
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                                            
+	    if (rst)                                            
 	      begin                                                             
 	        axi_bready <= 1'b0;                                             
 	      end                                                               
@@ -580,7 +585,7 @@
 	  always @(posedge M_AXI_ACLK)                                 
 	  begin                                                              
 	                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                                         
+	    if (rst)                                         
 	      begin                                                          
 	        axi_arvalid <= 1'b0;                                         
 	      end                                                            
@@ -601,7 +606,7 @@
 	// Next address after ARREADY indicates previous address acceptance  
 	  always @(posedge M_AXI_ACLK)                                       
 	  begin                                                              
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                          
+	    if (rst)                                          
 	      begin                                                          
 	        axi_araddr <= 'b0;                                           
 	      end                                                            
@@ -629,7 +634,7 @@
 	// terminal count to reduce decode logic                                
 	  always @(posedge M_AXI_ACLK)                                          
 	  begin                                                                 
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 || start_single_burst_read)                  
+	    if (rst || start_single_burst_read)                  
 	      begin                                                             
 	        read_index <= 0;                                                
 	      end                                                               
@@ -650,7 +655,7 @@
 	 */                                                                     
 	  always @(posedge M_AXI_ACLK)                                          
 	  begin                                                                 
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1 )                  
+	    if (rst)                  
 	      begin                                                             
 	        axi_rready <= 1'b0;                                             
 	      end                                                               
@@ -681,7 +686,7 @@
 
 	  always @(posedge M_AXI_ACLK)                                 
 	  begin                                                              
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                          
+	    if (rst)                                          
 	      begin                                                          
 	        error_reg <= 1'b0;                                           
 	      end                                                            
@@ -724,7 +729,7 @@
 	  // signal remains asserted until the burst write is accepted by the slave                                 
 	  always @(posedge M_AXI_ACLK)                                                                              
 	  begin                                                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                                                                 
+	    if (rst)                                                                                 
 	      burst_write_active <= 1'b0;                                                                           
 	                                                                                                            
 	    //The burst_write_active is asserted when a write burst transaction is initiated                        
@@ -741,7 +746,7 @@
 	  // signal remains asserted until the burst read is accepted by the master                                 
 	  always @(posedge M_AXI_ACLK)                                                                              
 	  begin                                                                                                     
-	    if (M_AXI_ARESETN == 0 || init_txn_pulse == 1'b1)                                                                                 
+	    if (rst)                                                                                 
 	      burst_read_active <= 1'b0;                                                                            
 	                                                                                                            
 	    //The burst_write_active is asserted when a write burst transaction is initiated                        
@@ -758,7 +763,7 @@
 
 	// fifo read state machine
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
+		if(rst)
 			fifo_rd_state <= FIFO_IDLE;
 		else 
 			case(fifo_rd_state)
@@ -792,7 +797,7 @@
 	assign fifo_rden = (fifo_rd_state==FIFO_CACHE);
 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
+		if(rst)
 			fifo_rdcnt <= 0;
 		else if(fifo_rden)
 			if(fifo_rdcnt==C_M_AXI_BURST_LEN-1)
@@ -804,7 +809,7 @@
 
 	// fifo cache 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
+		if(rst) begin
 			for(i=0; i<C_M_AXI_BURST_LEN; i=i+1) begin
 				rd_cache_a[i] <= {C_M_AXI_DATA_WIDTH{1'b0}};
 				rd_cache_b[i] <= {C_M_AXI_DATA_WIDTH{1'b0}};
@@ -819,7 +824,7 @@
 
 	// fifo cache ready & sel signal
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
+		if(rst) begin
 			cache_a_ready <= 1'b0;
 			cache_b_ready <= 1'b0;
 			cache_sel <= 1'b0;
@@ -849,7 +854,7 @@
 
 	// cache to axi4 write
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
+		if(rst) begin
 			start_single_burst_write <= 0;
 			mst_wr_state <= WR_IDLE;
 		end
@@ -885,7 +890,7 @@
 			endcase
 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
+		if(rst) begin
 			cache_a_invalid <= 0;
 			cache_b_invalid <= 0;
 			cache_sel_wr <= 0;
@@ -911,7 +916,7 @@
 	generate
 		if(ALLOW_READ == "TRUE") begin
 			always @ (posedge M_AXI_ACLK)
-				if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
+				if(rst)
 					fifo_ptr <= 0;
 				else
 					case({axi4_wr_hit, axi4_rd_hit})
@@ -926,7 +931,7 @@
 		end
 		else begin
 			always @ (posedge M_AXI_ACLK)
-				if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1)
+				if(rst)
 					fifo_ptr <= 0;
 				else
 					fifo_ptr <= 0;
@@ -934,7 +939,7 @@
 	endgenerate
 
 	always @ (posedge M_AXI_ACLK)
-		if(M_AXI_ARESETN==0 || init_txn_pulse == 1'b1) begin
+		if(rst) begin
 			start_single_burst_read <= 0;
 			mst_rd_state <= RD_IDLE;
 		end
