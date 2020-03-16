@@ -1,10 +1,10 @@
 // -----------------------------------------------------------------------------
-// Copyright (c) 2014-2019 All rights reserved
+// Copyright (c) 2014-2020 All rights reserved
 // -----------------------------------------------------------------------------
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : alg_data_distribution.v
 // Create : 2019-10-22 16:28:45
-// Revised: 2019-11-28 17:07:33
+// Revised: 2020-03-16 15:29:24
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -33,6 +33,7 @@ module alg_data_distribution#(
 		input m1_axis_mm2s_cmd_tready,
 		output m1_axis_mm2s_cmd_tvalid,
 		// misc 
+		output frame_store_o,
 		output [1:0] frame_type_o,
 		output lost_read
     );
@@ -78,6 +79,9 @@ module alg_data_distribution#(
 	reg [2:0] mst_state;
 
 	reg [1:0] frame_type_r;
+
+	reg [5:0] frame_store_shift_r;
+	reg frame_store_hit;
 
 	reg lost_read_r;
 
@@ -276,7 +280,21 @@ module alg_data_distribution#(
 		else
 			lost_read_r <= lost_read_r;
 
+	always @ (posedge clk)
+		if(!rst_n) begin
+			frame_store_shift_r <= 0;
+			frame_store_hit <= 0;
+		end
+		else begin
+			if((mst_state==IDLE)&&(frame_cnt>=2)) 
+				frame_store_shift_r <= {frame_store_shift_r[4:0], 1'b1};
+			else
+				frame_store_shift_r <= {frame_store_shift_r[4:0], 1'b0};
+			frame_store_hit <= |frame_store_shift_r;
+		end
+
 	// output logic
+	assign frame_store_o = frame_store_hit;
 	assign frame_type_o = frame_type_r;
 	assign lost_read = lost_read_r;
 	assign m0_axis_mm2s_cmd_tvalid = (mst_state==RD_LINE_A);
