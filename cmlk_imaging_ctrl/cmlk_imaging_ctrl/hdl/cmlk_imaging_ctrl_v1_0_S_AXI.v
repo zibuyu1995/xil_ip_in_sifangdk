@@ -26,6 +26,9 @@
 		output wire [31:0] alg_base_addr,
 		output wire alg_load_addr,
 		input wire alg_lost_read,
+
+		input wire frame_2d_store,
+		input wire frame_3d_store,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -138,6 +141,11 @@
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
 	integer	 byte_index;
 	reg	 aw_en;
+
+	reg [15:0] frame_2d_count;
+	reg [15:0] frame_3d_count;
+	wire frame_2d_dec;
+	wire frame_3d_dec;
 
 	// I/O Connections assignments
 
@@ -401,6 +409,8 @@
 	    else
 	      begin
 	      	slv_reg2 <= 0;
+	      	slv_reg14 <= 0;
+	      	slv_reg15 <= 0;
 	      end
 	  end
 	end    
@@ -519,8 +529,8 @@
 	        4'h9   : reg_data_out <= slv_reg9;
 	        4'hA   : reg_data_out <= {31'd0, alg_lost_read};
 	        4'hB   : reg_data_out <= slv_reg11;
-	        4'hC   : reg_data_out <= slv_reg12;
-	        4'hD   : reg_data_out <= slv_reg13;
+	        4'hC   : reg_data_out <= {16'd0, frame_2d_count};
+	        4'hD   : reg_data_out <= {16'd0, frame_3d_count};
 	        4'hE   : reg_data_out <= slv_reg14;
 	        4'hF   : reg_data_out <= slv_reg15;
 	        default : reg_data_out <= 0;
@@ -546,12 +556,39 @@
 	    end
 	end    
 
+	// frame count
+	always @ (posedge S_AXI_ACLK)
+		if((S_AXI_ARESETN==1'b0)||(init_txn==1'b1))
+			frame_2d_count <= 0;
+		else 
+			case({frame_2d_store, frame_2d_dec})
+				2'b00 : frame_2d_count <= frame_2d_count;
+				2'b01 : frame_2d_count <= frame_2d_count - 1;
+				2'b10 : frame_2d_count <= frame_2d_count + 1;
+				2'b11 : frame_2d_count <= frame_2d_count;
+			endcase
+
+	always @ (posedge S_AXI_ACLK)
+		if((S_AXI_ARESETN==1'b0)||(init_txn==1'b1))
+			frame_3d_count <= 0;
+		else 
+			case({frame_3d_store, frame_3d_dec})
+				2'b00 : frame_3d_count <= frame_3d_count;
+				2'b01 : frame_3d_count <= frame_3d_count - 1;
+				2'b10 : frame_3d_count <= frame_3d_count + 1;
+				2'b11 : frame_3d_count <= frame_3d_count;
+			endcase
+
 	// Add user logic here
 	assign init_txn = slv_reg2[0];
 	assign diff_en = slv_reg4[0];
 	assign img_wr2ddr_en = slv_reg6[0];
 	assign alg_base_addr = slv_reg8;
 	assign alg_load_addr = slv_reg9[0];
+
+	assign frame_2d_dec = slv_reg14[0];
+	assign frame_3d_dec = slv_reg15[0];
+
 	// User logic ends
 
 	endmodule

@@ -26,6 +26,9 @@
 		output wire [31:0] alg_base_addr,
 		output wire alg_load_addr,
 		input wire alg_lost_read,
+
+		input wire frame_2d_store,
+		input wire frame_3d_store,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -69,6 +72,8 @@
 		.alg_base_addr    (alg_base_addr    ),
 		.alg_load_addr    (alg_load_addr    ),
 		.alg_lost_read    (alg_lost_read    ),
+		.frame_2d_store   (frame_2d_store   ),
+		.frame_3d_store   (frame_3d_store   ),
 		.S_AXI_ACLK       (s_axi_aclk       ),
 		.S_AXI_ARESETN    (s_axi_aresetn    ),
 		.S_AXI_AWADDR     (s_axi_awaddr     ),
