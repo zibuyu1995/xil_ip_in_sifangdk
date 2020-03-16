@@ -1,35 +1,39 @@
 // -----------------------------------------------------------------------------
-// Copyright (c) 2014-2019 All rights reserved
+// Copyright (c) 2014-2020 All rights reserved
 // -----------------------------------------------------------------------------
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : img_packet.v
 // Create : 2019-11-14 14:28:30
-// Revised: 2019-11-20 15:42:29
+// Revised: 2020-03-16 13:54:03
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
-module img_packet (
-	input clk,    // Clock
-	input rst_n,  // Synchronous reset active low
-	// stream_in
-	input [31:0] data_in,
-	input data_in_valid,
-	// output fifo interface
-	output [31:0] fifo_wrdata,
-	output fifo_wren,
-	input fifo_full,
-	// misc
-	input wr2ddr_en,
-	output fifo_overflow,
-	input frame_start,
-	input [1:0] frame_type_i,
-	output frame_store,
-	output [1:0] frame_type_o
-);
-	localparam LINE_SIZE = 1024;
-	localparam IMAGE_SIZE = 1024*1024;
-	localparam WR_NUM = IMAGE_SIZE/4;
-	localparam LINE_NUM = LINE_SIZE/4;
+module img_packet #(
+		parameter LINE_SIZE  = 1024     ,
+		parameter IMAGE_SIZE = 1024*1024,
+		parameter PIX_SIZE = 8
+	) (
+		input         clk          , // Clock
+		input         rst_n        , // Synchronous reset active low
+		// stream_in
+		input  [31:0] data_in      ,
+		input         data_in_valid,
+		// output fifo interface
+		output [31:0] fifo_wrdata  ,
+		output        fifo_wren    ,
+		input         fifo_full    ,
+		// misc
+		input         wr2ddr_en    ,
+		output        fifo_overflow,
+		input         frame_start  ,
+		input  [ 1:0] frame_type_i ,
+		output        frame_store  ,
+		output [ 1:0] frame_type_o
+	);
+
+	localparam PIX_PER_DATA = 32 / PIX_SIZE;
+	localparam WR_NUM = IMAGE_SIZE / PIX_PER_DATA;
+	localparam LINE_NUM = LINE_SIZE / PIX_PER_DATA;
 
 	localparam IDLE = 3'd0;
 	localparam WR_DATA = 3'd1;
@@ -46,11 +50,13 @@ module img_packet (
 	reg frame_start_qq;
 	reg [1:0] frame_type_qq;
 	wire frame_start_rise;
+	reg [31:0] frame_cnt;
 
 	wire [31:0] parity_w;
 	wire [31:0] frame_info_dw0;
 	wire [31:0] frame_info_dw1;
 	wire [31:0] frame_info_dw2;
+	wire [31:0] frame_info_dw3;
 
 	reg [31:0] fifo_wrdata_r;
 	reg fifo_wren_r;
@@ -69,6 +75,7 @@ module img_packet (
 	assign frame_info_dw0 = {16'd0, {6'd0, frame_type_qq}, 8'd0}; // 31-16bit---reserved, 15-8bit---frame type, 7-0bit---0-2d, 1-3d
 	assign frame_info_dw1 = 32'd0;
 	assign frame_info_dw2 = 32'd0;
+	assign frame_info_dw3 = frame_cnt;
 
 	parity_xor #(
 		.DATA_WIDTH(32)
@@ -135,6 +142,14 @@ module img_packet (
 				default : int_cnt <= 0;
 			endcase
 
+	always @ (posedge clk)
+		if(!rst_n)
+			frame_cnt <= 0;
+		else if(mst_state==DONE)
+			frame_cnt <= frame_cnt + 1'b1;
+		else
+			frame_cnt <= frame_cnt;
+
 	// write fifo buffer
 	always @ (posedge clk)
 		if(!rst_n) begin
@@ -157,14 +172,13 @@ module img_packet (
 				end
 
 				FRAME_INFO : begin
-					if((int_cnt==4)&&(fifo_full==1'b0))
-						fifo_wrdata_r <= frame_info_dw0;
-					else if((int_cnt==5)&&(fifo_full==1'b0))
-						fifo_wrdata_r <= frame_info_dw1;
-					else if((int_cnt==6)&&(fifo_full==1'b0))
-						fifo_wrdata_r <= frame_info_dw2;
-					else
-						fifo_wrdata_r <= fifo_wrdata_r;
+					case(int_cnt)
+						4 : fifo_wrdata_r <= frame_info_dw0;
+						5 : fifo_wrdata_r <= frame_info_dw1;
+						6 : fifo_wrdata_r <= frame_info_dw2;
+						7 : fifo_wrdata_r <= frame_info_dw3;
+						default : fifo_wrdata_r <= fifo_wrdata_r;
+					endcase
 					fifo_wren_r <= ({fifo_full, wr2ddr_en_r}==2'b01);
 				end
 
@@ -215,19 +229,19 @@ module img_packet (
 						mst_state <= WR_DATA;
 
 				PARITY :
-					if(int_cnt>=3) 
+					if((int_cnt>=3)&&(fifo_full==1'b0)) 
 						mst_state <= FRAME_INFO;
 					else
 						mst_state <= PARITY;
 
 				FRAME_INFO :
-					if(int_cnt>=6)
+					if((int_cnt>=7)&&(fifo_full==1'b0))
 						mst_state <= FLUSH;
 					else
 						mst_state <= FRAME_INFO;
 
 				FLUSH : 
-					if(int_cnt>=LINE_NUM-1)
+					if((int_cnt>=LINE_NUM-1)&&(fifo_full==1'b0))
 						mst_state <= DONE;
 					else
 						mst_state <= FLUSH;
