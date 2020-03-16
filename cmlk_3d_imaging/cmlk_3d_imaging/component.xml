@@ -127,6 +127,10 @@
           <spirit:name>ASSOCIATED_BUSIF</spirit:name>
           <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_BUSIF">s00_axis:s01_axis</spirit:value>
         </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_RESET">rst_n</spirit:value>
+        </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
     <spirit:busInterface>
@@ -208,7 +212,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>90d3e26c</spirit:value>
+            <spirit:value>b9ae751a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -224,7 +228,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>90d3e26c</spirit:value>
+            <spirit:value>b9ae751a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -634,19 +638,19 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/threeD.v</spirit:name>
+        <spirit:name>hdl/img3d_calc.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/cmlk_3d_imaging_wrapper.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_aa9e5000</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_b3b962c5</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/threeD.v</spirit:name>
+        <spirit:name>hdl/img3d_calc.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -700,11 +704,11 @@
       </xilinx:taxonomies>
       <xilinx:displayName>cmlk_3d_imaging_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>1</xilinx:coreRevision>
+      <xilinx:coreRevision>2</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>xilinx.com:user:cmlk_3d_imaging_wrapper:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2019-12-02T07:33:29Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2020-03-16T03:09:19Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="xilinx.com:user:cmlk_3d_imaging_wrapper:1.0_ARCHIVE_LOCATION">e:/lh/ip_repo/cmlk_3d_imaging/cmlk_3d_imaging</xilinx:tag>
@@ -713,8 +717,8 @@
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2017.4</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="8c039cff"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="41aac6cd"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="5a8d60d8"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="be3331da"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="79a82d1b"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="cb4cf302"/>
     </xilinx:packagingInfo>

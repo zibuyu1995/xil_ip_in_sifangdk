@@ -1,10 +1,10 @@
 // -----------------------------------------------------------------------------
-// Copyright (c) 2014-2019 All rights reserved
+// Copyright (c) 2014-2020 All rights reserved
 // -----------------------------------------------------------------------------
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_3d_imaging_wrapper.v
 // Create : 2019-11-25 15:06:45
-// Revised: 2019-12-02 15:25:50
+// Revised: 2020-03-16 11:06:13
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -70,26 +70,24 @@ module cmlk_3d_imaging_wrapper (
 	assign threeD_fifo_dout = fifo_rddata;
 	assign threeD_fifo_dout_vld = fifo_rden;
 
-	threeD threeD_i0 (
-		.clk                 (clk                 ),
-		.rst                 (~rst_n              ),
-		.delay_a             (delay_a             ),
-		.gate_width          (gate_width          ),
-		.thres               (thres               ),
-		.frame_type          (frame_type          ),
-		.data_a_fifo         (data_a_fifo         ),
-		.data_b_fifo         (data_b_fifo         ),
-		.data_fifo_vld       (data_fifo_vld       ),
-		.data_out_threeD     (data_out_threeD     ),
-		.data_out_threeD_vld (data_out_threeD_vld ),
-		.nom_rd              (nom_rd              ),
-		.threeD_fifo_dout    (threeD_fifo_dout    ),
-		.threeD_fifo_dout_vld(threeD_fifo_dout_vld),
-		.nom_out             (nom_out             ),
-		.nom_out_vld         (nom_out_vld         ),
-		.max_out             (max_out             ),
-		.min_out             (min_out             )
+	img3d_calc img3d_calc_i0 (
+		.clk           (clk),
+		.rst           (~rst_n),
+		.delay_a       (delay_a),
+		.gate_width    (gate_width),
+		.thres         (thres),
+		.frame_type    (frame_type),
+		.data_a_fifo   (data_a_fifo),
+		.data_b_fifo   (data_b_fifo),
+		.data_fifo_vld (data_fifo_vld),
+		.nom_out       (nom_out),
+		.nom_out_vld   (nom_out_vld),
+		.max_out       (max_out),
+		.min_out       (min_out)
 	);
+
+	assign data_out_threeD = 'd0;
+	assign data_out_threeD_vld = 1'b0;
 
 
 endmodule
