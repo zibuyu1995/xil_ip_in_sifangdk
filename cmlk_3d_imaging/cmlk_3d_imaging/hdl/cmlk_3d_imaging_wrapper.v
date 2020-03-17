@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_3d_imaging_wrapper.v
 // Create : 2019-11-25 15:06:45
-// Revised: 2020-03-16 11:06:13
+// Revised: 2020-03-16 15:51:48
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ module cmlk_3d_imaging_wrapper (
 	output        fifo_rden           ,
 	input         fifo_empty          ,
 	// output
-	output [ 7:0] nom_out             ,
+	output [15:0] nom_out             ,
 	output        nom_out_vld         ,
 	output [31:0] max_out             ,
 	output [31:0] min_out
