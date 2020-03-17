@@ -26,6 +26,8 @@
 		output wire [31:0] alg_base_addr,
 		output wire alg_load_addr,
 		input wire alg_lost_read,
+		input wire img_3d_wr2ddr_ovf,
+		output wire img_3d_wr2ddr_en,
 
 		input wire frame_2d_store,
 		input wire frame_3d_store,
@@ -72,6 +74,8 @@
 		.alg_base_addr    (alg_base_addr    ),
 		.alg_load_addr    (alg_load_addr    ),
 		.alg_lost_read    (alg_lost_read    ),
+		.img_3d_wr2ddr_ovf(img_3d_wr2ddr_ovf),
+		.img_3d_wr2ddr_en (img_3d_wr2ddr_en ),
 		.frame_2d_store   (frame_2d_store   ),
 		.frame_3d_store   (frame_3d_store   ),
 		.S_AXI_ACLK       (s_axi_aclk       ),

@@ -26,6 +26,8 @@
 		output wire [31:0] alg_base_addr,
 		output wire alg_load_addr,
 		input wire alg_lost_read,
+		input wire img_3d_wr2ddr_ovf,
+		output wire img_3d_wr2ddr_en,
 
 		input wire frame_2d_store,
 		input wire frame_3d_store,
@@ -527,7 +529,7 @@
 	        4'h7   : reg_data_out <= slv_reg7;
 	        4'h8   : reg_data_out <= slv_reg8;
 	        4'h9   : reg_data_out <= slv_reg9;
-	        4'hA   : reg_data_out <= {31'd0, alg_lost_read};
+	        4'hA   : reg_data_out <= {30'd0, img_3d_wr2ddr_ovf, alg_lost_read};
 	        4'hB   : reg_data_out <= slv_reg11;
 	        4'hC   : reg_data_out <= {16'd0, frame_2d_count};
 	        4'hD   : reg_data_out <= {16'd0, frame_3d_count};
@@ -585,6 +587,7 @@
 	assign img_wr2ddr_en = slv_reg6[0];
 	assign alg_base_addr = slv_reg8;
 	assign alg_load_addr = slv_reg9[0];
+	assign img_3d_wr2ddr_en = slv_reg11[0];
 
 	assign frame_2d_dec = slv_reg14[0];
 	assign frame_3d_dec = slv_reg15[0];
