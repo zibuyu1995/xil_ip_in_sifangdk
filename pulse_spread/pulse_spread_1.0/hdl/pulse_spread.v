@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : pulse_spread.v
 // Create : 2020-03-17 11:04:20
-// Revised: 2020-03-17 11:12:16
+// Revised: 2020-03-17 13:57:54
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -15,9 +15,9 @@ module pulse_spread #(
 		input  clk       , // Clock
 		input  rst_n     , // Synchronous reset active low
 		//
-		input  signal    ,
+		input  pulse_in  ,
 		//
-		output signal_out
+		output sig_out
 	);
 
 	reg [WIDTH-1:0] shift_reg;
@@ -31,7 +31,7 @@ module pulse_spread #(
 					pulse_hit <= 0;
 				end
 			else begin
-				shift_reg <= {shift_reg[WIDTH-2:0], signal};
+				shift_reg <= {shift_reg[WIDTH-2:0], pulse_in};
 				pulse_hit <= |shift_reg;
 			end
 		end
@@ -42,11 +42,12 @@ module pulse_spread #(
 					pulse_hit <= 1;
 				end
 			else begin
-				shift_reg <= {shift_reg[WIDTH-2:0], signal};
+				shift_reg <= {shift_reg[WIDTH-2:0], pulse_in};
 				pulse_hit <= &shift_reg;
 			end
 		end
 	endgenerate
 
+	assign sig_out = pulse_hit;
 
 endmodule
