@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_3d_data_repack.v
 // Create : 2020-03-16 16:06:23
-// Revised: 2020-03-16 16:13:54
+// Revised: 2020-03-18 14:29:04
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -44,5 +44,9 @@ module cmlk_3d_data_repack (
 			dout_vld_r <= 0;
 		else 
 			dout_vld_r <= ({shift_flag, din_vld}==2'b11);
+
+	// add output
+	assign dout = dout_r;
+	assign dout_vld = dout_vld_r;
 
 endmodule
