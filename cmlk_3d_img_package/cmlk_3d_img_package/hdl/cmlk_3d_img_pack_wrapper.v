@@ -4,7 +4,7 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_3d_img_pack_wrapper.v
 // Create : 2020-03-16 16:02:57
-// Revised: 2020-03-16 16:34:58
+// Revised: 2020-03-31 13:47:34
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -43,7 +43,12 @@ module cmlk_3d_img_pack_wrapper (
 	);
 
 
-	img_packet img_packet_i0 (
+	img_packet #(
+		.LINE_SIZE (512),
+		.IMAGE_SIZE(1024*1024),
+		.PIX_SIZE  (16),
+		.PKT_MODE  ("3D")
+	) img_packet_i0 (
 		.clk          (aclk         ),
 		.rst_n        (int_resetn   ),
 		.data_in      (pack_data_in ),

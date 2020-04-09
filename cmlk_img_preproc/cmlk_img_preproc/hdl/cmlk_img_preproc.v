@@ -1,10 +1,10 @@
 // -----------------------------------------------------------------------------
-// Copyright (c) 2014-2019 All rights reserved
+// Copyright (c) 2014-2020 All rights reserved
 // -----------------------------------------------------------------------------
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : cmlk_img_preproc.v
 // Create : 2019-11-06 15:54:49
-// Revised: 2019-11-20 16:01:42
+// Revised: 2020-03-31 13:50:04
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
@@ -114,7 +114,12 @@ module cmlk_img_preproc#(parameter ENABLE_EXT_TRIG_CNT = "TRUE")(
 		.doutb (bram_rdata )
 	);
 
-	img_packet img_packet_i0 (
+	img_packet #(
+		.LINE_SIZE (1024),
+		.IMAGE_SIZE(1024*1024),
+		.PIX_SIZE  (8),
+		.PKT_MODE  ("2D")
+	) img_packet_i0 (
 		.clk          (aclk         ),
 		.rst_n        (int_resetn   ),
 		.data_in      (diff_out     ),

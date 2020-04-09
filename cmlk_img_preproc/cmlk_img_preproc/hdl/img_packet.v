@@ -4,14 +4,15 @@
 // Author : hao liang (Ash) a529481713@gmail.com
 // File   : img_packet.v
 // Create : 2019-11-14 14:28:30
-// Revised: 2020-03-16 13:54:03
+// Revised: 2020-04-03 11:46:39
 // Editor : sublime text3, tab size (4)
 // Coding : UTF-8
 // -----------------------------------------------------------------------------
 module img_packet #(
 		parameter LINE_SIZE  = 1024     ,
 		parameter IMAGE_SIZE = 1024*1024,
-		parameter PIX_SIZE = 8
+		parameter PIX_SIZE = 8          ,
+		parameter PKT_MODE = "2D"
 	) (
 		input         clk          , // Clock
 		input         rst_n        , // Synchronous reset active low
@@ -69,10 +70,16 @@ module img_packet #(
 	reg wr2ddr_en_r;
 	wire wr2ddr_en_hit;
 
-	reg [17:0] int_cnt;
+	reg [20:0] int_cnt;
 	reg [2:0] mst_state;
 
-	assign frame_info_dw0 = {16'd0, {6'd0, frame_type_qq}, 8'd0}; // 31-16bit---reserved, 15-8bit---frame type, 7-0bit---0-2d, 1-3d
+	generate
+		if(PKT_MODE=="2D") 
+			assign frame_info_dw0 = {16'd0, {6'd0, frame_type_qq}, 8'd0}; // 31-16bit---reserved, 15-8bit---frame type, 7-0bit---0-2d, 1-3d
+		else 
+			assign frame_info_dw0 = {16'd0, {6'd0, frame_type_qq}, 8'd1}; // 31-16bit---reserved, 15-8bit---frame type, 7-0bit---0-2d, 1-3d
+	endgenerate
+	
 	assign frame_info_dw1 = 32'd0;
 	assign frame_info_dw2 = 32'd0;
 	assign frame_info_dw3 = frame_cnt;
@@ -81,7 +88,7 @@ module img_packet #(
 		.DATA_WIDTH(32)
 	) parity_xor_i0 (
 		.clk       (clk),
-		.rst_n     (rst_n),
+		.rst_n     (rst_n||frame_start_rise),
 		.data_in   (data_in_q),
 		.parity_en (data_in_valid_q),
 		.data_out  (parity_w)
@@ -130,7 +137,10 @@ module img_packet #(
 			case (mst_state)
 				WR_DATA : 
 					if(data_in_valid_q)
-						int_cnt <= int_cnt + 1;
+						if(int_cnt>=WR_NUM-1)
+							int_cnt <= 0;
+						else
+							int_cnt <= int_cnt + 1;
 					else
 						int_cnt <= int_cnt;
 
@@ -145,7 +155,7 @@ module img_packet #(
 	always @ (posedge clk)
 		if(!rst_n)
 			frame_cnt <= 0;
-		else if(mst_state==DONE)
+		else if((mst_state==DONE)&&(wr2ddr_en_r==1'b1))
 			frame_cnt <= frame_cnt + 1'b1;
 		else
 			frame_cnt <= frame_cnt;
@@ -196,7 +206,7 @@ module img_packet #(
 	always @ (posedge clk)
 		if(!rst_n)
 			frame_store_r <= 0;
-		else if(mst_state==DONE)
+		else if((mst_state==DONE)&&(wr2ddr_en_r==1'b1))
 			frame_store_r <= 1;
 		else
 			frame_store_r <= 0;
@@ -223,7 +233,7 @@ module img_packet #(
 						mst_state <= IDLE;
 
 				WR_DATA : 
-					if(int_cnt>=WR_NUM-1)
+					if((int_cnt>=WR_NUM-1)&&(data_in_valid_q==1'b1))
 						mst_state <= PARITY;
 					else
 						mst_state <= WR_DATA;
@@ -255,7 +265,12 @@ module img_packet #(
 	end
 
 	// write to ddr enable control
-	assign wr2ddr_en_hit = ({frame_start_rise, frame_type_q, wr2ddr_en_q}==4'b1001);
+	generate
+		if(PKT_MODE=="2D") 
+			assign wr2ddr_en_hit = ({frame_start_rise, frame_type_q, wr2ddr_en_q}==4'b1001);
+		else 
+			assign wr2ddr_en_hit = ({frame_start_rise, wr2ddr_en_q}==2'b11);
+	endgenerate
 
 	always @ (posedge clk)
 		if(!rst_n)
