@@ -20,6 +20,7 @@ module ads8556_wrraper #(parameter CLK_FREQ = 100_000_000)(
 		input         ads8556_busy    ,
 		inout  [15:0] ads8556_data    ,
 		// ads8556 control interface
+		input         ads8556_syncn   ,
 		output        ads8556_conv    ,
 		output        ads8556_standbyn,
 		output        ads8556_reset   ,
@@ -51,6 +52,7 @@ module ads8556_wrraper #(parameter CLK_FREQ = 100_000_000)(
 		.ads8556_data_in  (ads8556_data_in),
 		.ads8556_data_out (ads8556_data_out),
 		.ads8556_data_t   (ads8556_data_t),
+		.ads8556_syncn    (ads8556_syncn),
 		.ads8556_conv     (ads8556_conv),
 		.ads8556_standbyn (ads8556_standbyn),
 		.ads8556_reset    (ads8556_reset),

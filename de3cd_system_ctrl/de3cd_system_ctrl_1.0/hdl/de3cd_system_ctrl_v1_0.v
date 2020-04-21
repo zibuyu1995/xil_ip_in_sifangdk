@@ -17,6 +17,7 @@
 	(
 		// Users to add ports here
 		output [15:0] tint_val,
+		output [1:0] sync_phase,
 		output tint_load,
 		input region_indc,
 		input region_data_valid,
@@ -81,6 +82,7 @@
 		.S_AXI_RVALID     (s_axi_rvalid ),
 		.S_AXI_RREADY     (s_axi_rready ),
 		.tint_val         (tint_val     ),
+		.sync_phase       (sync_phase   ),
 		.tint_load        (tint_load    ),
 		.region_indc      (region_indc_r),
 		.region_data_ready(data_ready_r ),

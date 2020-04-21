@@ -37,6 +37,7 @@ module de3cd_daq #(parameter CLK_FREQ = 100_000_000) (
 		output [  9:0] tcd1304_icg        ,
 		// config ports
 		input  [ 15:0] tint_var           ,
+		input  [  1:0] sync_phase         ,
 		input          tint_load          ,
 		// test port
 		output [ 15:0] chip1_cross        ,
@@ -57,6 +58,8 @@ module de3cd_daq #(parameter CLK_FREQ = 100_000_000) (
 	wire tcd1304_sh_w;
 	wire tcd1304_icg_w; 
 
+	wire ads8556_syncn;
+
 	wire [15:0] tcd1304_dout_w[9:0];
 	wire [9:0] tcd1304_valid_w;
 	wire [9:0] tcd1304_frame_start_w;
@@ -73,6 +76,7 @@ module de3cd_daq #(parameter CLK_FREQ = 100_000_000) (
 		.ads8556_csn      (ads8556_1_csn),
 		.ads8556_busy     (ads8556_1_busy),
 		.ads8556_data     (ads8556_1_data),
+		.ads8556_syncn    (ads8556_syncn),
 		.ads8556_conv     (ads8556_1_conv),
 		.ads8556_standbyn (ads8556_1_standbyn),
 		.ads8556_reset    (ads8556_1_reset),
@@ -96,6 +100,7 @@ module de3cd_daq #(parameter CLK_FREQ = 100_000_000) (
 		.ads8556_csn      (ads8556_2_csn),
 		.ads8556_busy     (ads8556_2_busy),
 		.ads8556_data     (ads8556_2_data),
+		.ads8556_syncn    (ads8556_syncn),
 		.ads8556_conv     (ads8556_2_conv),
 		.ads8556_standbyn (ads8556_2_standbyn),
 		.ads8556_reset    (ads8556_2_reset),
@@ -109,6 +114,15 @@ module de3cd_daq #(parameter CLK_FREQ = 100_000_000) (
 		.data_clk2m       ()
 	);
 
+	de3cd_multichip_sync de3cd_multichip_sync_i0 (
+		.clk           (clk),
+		.rst_n         (rst_n),
+		.clk_2m        (data_clk2m),
+		.tcd1304_sh    (tcd1304_sh_w),
+		.sync_phase    (sync_phase),
+		.tcd1304_load  (tint_load),
+		.ads8556_syncn (ads8556_syncn)
+	);
 
 	tcd1304_ctrl tcd1304_ctrl_i0(
 		.clk           (clk),

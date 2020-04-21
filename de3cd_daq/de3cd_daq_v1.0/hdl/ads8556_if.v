@@ -22,6 +22,7 @@ module ads8556_if #(parameter CLK_FREQ = 100_000_000)(
 		output [15:0] ads8556_data_out,
 		output        ads8556_data_t  ,
 		// ads8556 control interface
+		input         ads8556_syncn   ,
 		output        ads8556_conv    ,
 		output        ads8556_standbyn,
 		output        ads8556_reset   ,
@@ -141,7 +142,7 @@ module ads8556_if #(parameter CLK_FREQ = 100_000_000)(
 	assign rdclk_edge = ({rdclk_r, rdclk}==2'b01)||({rdclk_r, rdclk}==2'b10);
 
 	always @ (posedge clk) // drive sample trigger
-		if(!rst_n) begin
+		if(!rst_n||ads8556_syncn) begin
 			smpl_pulse_cnt <= 0;
 			smpl_pulse <= 0;
 		end

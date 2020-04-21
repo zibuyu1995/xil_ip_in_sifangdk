@@ -17,6 +17,7 @@
 	(
 		// Users to add ports here
 		output [15:0] tint_val,
+		output [1:0] sync_phase,
 		output tint_load,
 		input region_indc,
 		input region_data_ready,
@@ -445,6 +446,7 @@
 	// Add user logic here
 	assign tint_val = slv_reg4[15:0];
 	assign tint_load = slv_reg5[0];
+	assign sync_phase = slv_reg3[1:0];
 	assign data_flag_clr = slv_reg10[0];
 
 	// User logic ends
